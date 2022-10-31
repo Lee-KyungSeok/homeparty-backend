@@ -15,15 +15,24 @@ test {
 }
 
 asciidoctor {
-    inputs.dir snippetsDir
-    configurations 'asciidoctorExt'
     dependsOn test
+    configurations 'asciidoctorExt'
+    inputs.dir snippetsDir
+
+    baseDirFollowsSourceFile()
 }
+
+// static/docs 폴더 비우기
+asciidoctor.doFirst {
+    delete file('src/main/resources/static/docs')
+}
+
 
 bootJar {
     enabled = true
+
     dependsOn asciidoctor
-    from ("${asciidoctor.outputDir}/html5") {
+    from ("${asciidoctor.outputDir}") {
         into 'static/docs'
     }
 }
@@ -32,11 +41,16 @@ jar {
     enabled = true
 }
 
+// asccidoctor 작업 이후 생성된 HTML 파일을 static/docs 로 copy
 task copyDocument(type: Copy) {
     dependsOn asciidoctor
-
-    from file("build/asciidoc/html5/")
+    from file("build/docs/asciidoc")
     into file("src/main/resources/static/docs")
+}
+
+// build 의 의존작업 명시
+build {
+    dependsOn copyDocument
 }
 
 dependencies {
