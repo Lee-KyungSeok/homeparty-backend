@@ -1,0 +1,30 @@
+[[identity]]
+== identity API
+
+=== Request
+
+CURL:
+
+include::{snippets}/identities/curl-request.adoc[]
+
+Path Parameters:
+
+include::{snippets}/identities/path-parameters.adoc[]
+
+Query Parameters:
+
+include::{snippets}/identities/query-parameters.adoc[]
+
+Request HTTP Example:
+
+include::{snippets}/identities/http-request.adoc[]
+
+=== Response
+
+Response Fields:
+
+include::{snippets}/identities/response-fields.adoc[]
+
+Response HTTP Example:
+
+include::{snippets}/identities/http-response.adoc[]

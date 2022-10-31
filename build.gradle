@@ -1,0 +1,49 @@
+buildscript {
+    ext {
+        springBootVersion = '3.0.0-SNAPSHOT'
+        springDependencyManagementPluginVersion = '1.1.0.RELEASE'
+    }
+    repositories {
+        mavenCentral()
+        maven { url 'https://repo.spring.io/milestone' }
+        maven { url 'https://repo.spring.io/snapshot' }
+    }
+    dependencies {
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}"
+        classpath "io.spring.gradle:dependency-management-plugin:${springDependencyManagementPluginVersion}"
+    }
+}
+
+// root 를 포함한 모든 프로젝트에 대한 곤리
+allprojects {}
+
+// settings.gradle 에 include 된 관리 (하위 모듈 관련 관리)
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'groovy'
+    apply plugin: 'org.springframework.boot'
+    apply plugin: 'io.spring.dependency-management'
+
+    group = 'com.homeparty'
+    version = '0.1.0'
+    sourceCompatibility = '17'
+
+    repositories {
+        mavenCentral()
+        maven { url 'https://repo.spring.io/milestone' }
+        maven { url 'https://repo.spring.io/snapshot' }
+    }
+
+    dependencies {
+        compileOnly 'org.projectlombok:lombok'
+        annotationProcessor 'org.projectlombok:lombok'
+
+        testImplementation('org.springframework.boot:spring-boot-starter-test') {
+            exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+        }
+    }
+
+    test {
+        useJUnitPlatform()
+    }
+}

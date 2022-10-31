@@ -1,0 +1,16 @@
+pluginManagement {
+    repositories {
+        maven { url 'https://repo.spring.io/milestone' }
+        maven { url 'https://repo.spring.io/snapshot' }
+        gradlePluginPortal()
+    }
+}
+
+// root 프로젝트 이름 설정
+rootProject.name = 'backend'
+
+// 사용할 도메인 설정
+include 'identity'
+include 'app-api'
+include 'app-api'
+
