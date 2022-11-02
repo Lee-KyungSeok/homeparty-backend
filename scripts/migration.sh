@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # 만들어야 할 스크립트
+# 1. create migration file (flyway format, seed 및 migration 파일, domain 지정)
 # 2. run migration with env (flyway)
 # 3. clean migration with env  (flyway)
 # 4. add seed with env  (flyway)
@@ -169,9 +170,12 @@ function migrate_flyway() {
 }
 
 if [ $command == "gen" ]; then
+  echo "migration file generation start..."
   generate_migration
+
 elif [ $command == "run" ]; then
   echo "migrate start..."
+
   if [ $domain == "all" ]; then
     for DOMAIN in "${DOMAIN_LIST[@]}"; do
         migrate_flyway migrate "$DOMAIN" migration
@@ -179,8 +183,10 @@ elif [ $command == "run" ]; then
   else
     migrate_flyway migrate $domain
   fi
+
 elif [ $command == "clean" ]; then
-  echo "migrate clean..."
+  echo "migration clean start..."
+
   if [ $domain == "all" ]; then
     for DOMAIN in "${DOMAIN_LIST[@]}"; do
         migrate_flyway clean "$DOMAIN" migration
@@ -188,8 +194,10 @@ elif [ $command == "clean" ]; then
   else
     migrate_flyway clean $domain
   fi
+
 elif [ $command == "seed" ]; then
-  echo "migrate seed..."
+  echo "migration seed start..."
+
   if [ $domain == "all" ]; then
     for DOMAIN in "${DOMAIN_LIST[@]}"; do
         migrate_flyway migrate "$DOMAIN" seed
@@ -197,8 +205,10 @@ elif [ $command == "seed" ]; then
   else
     migrate_flyway migrate $domain
   fi
+
 elif [ $command == "reset" ]; then
   echo "migrate reset..."
+
   if [ $domain == "all" ]; then
     for DOMAIN in "${DOMAIN_LIST[@]}"; do
       migrate_flyway clean "$DOMAIN" migration
@@ -210,6 +220,7 @@ elif [ $command == "reset" ]; then
     migrate_flyway migrate "$domain" migration
     migrate_flyway migrate "$domain" seed
   fi
+
 else
   echo "command is wrong please check commands :("
   help
@@ -218,9 +229,3 @@ fi
 echo ""
 echo "migration scripts success!! Happy Hacking ~ 😀 😀"
 echo ""
-#echo "check var"
-#echo "domain: $domain"
-#echo "directory: $directory"
-#echo "file_format: $file_format"
-#echo "migration_name: $migration_name"
-#echo "env_path: $env_path"
