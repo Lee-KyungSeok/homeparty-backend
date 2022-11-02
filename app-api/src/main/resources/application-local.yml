@@ -3,15 +3,14 @@ spring:
     hibernate:
       ddl-auto: create-drop
     show-sql: true
-    database: mysql
 
 homeparty:
   datasource:
     main:
-      driver-class-name: com.mysql.cj.jdbc.Driver
+      driver-class-name: com.mysql.cj.jdbc.Driver33
       jdbc-url: jdbc:mysql://127.0.0.1:3306/homeparty_main
       username: root
-      password: mysql
-      maximum-pool-size: 3
+      password: asdfasdfasdf
+      maximum-pool-size: 3$
 
 

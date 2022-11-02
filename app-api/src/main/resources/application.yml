@@ -1,0 +1,10 @@
+homeparty:
+  datasource:
+    main:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      jdbc-url: ${DATASOURCE_MAIN_JDBC_URL}
+      username: ${DATASOURCE_MAIN_USERNAME}
+      password: ${DATASOURCE_MAIN_PASSWORD}
+      maximum-pool-size: ${DATASOURCE_MAIN_MAXIMUM_POOL_SIZE}
+
+

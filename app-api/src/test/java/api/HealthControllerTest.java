@@ -13,6 +13,7 @@ import org.springframework.http.MediaType;
 import org.springframework.restdocs.RestDocumentationContextProvider;
 import org.springframework.restdocs.RestDocumentationExtension;
 import org.springframework.restdocs.payload.JsonFieldType;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.reactive.server.EntityExchangeResult;
 import org.springframework.test.web.reactive.server.WebTestClient;
@@ -25,6 +26,7 @@ import static org.springframework.restdocs.webtestclient.WebTestClientRestDocume
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ExtendWith({RestDocumentationExtension.class, SpringExtension.class})
+@ActiveProfiles("test")
 public class HealthControllerTest {
 
     @LocalServerPort
@@ -34,7 +36,7 @@ public class HealthControllerTest {
     private WebTestClient webTestClient;
 
     @BeforeEach
-    public void setUp(ApplicationContext applicationContext, RestDocumentationContextProvider restDocumentation) {
+    public void setUp(RestDocumentationContextProvider restDocumentation) {
         this.webTestClient = WebTestClient
                 .bindToServer().baseUrl("http://localhost:" + port)
                 .filter(documentationConfiguration(restDocumentation))
