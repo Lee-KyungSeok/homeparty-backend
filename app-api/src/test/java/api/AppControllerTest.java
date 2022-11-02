@@ -19,6 +19,8 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.reactive.server.EntityExchangeResult;
 import org.springframework.test.web.reactive.server.WebTestClient;
 
+import java.util.UUID;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
@@ -48,7 +50,7 @@ public class AppControllerTest {
     @Test
     public void Test_Identity() {
         String provider = "kakao";
-        String identityId = "23";
+        UUID identityId = UUID.fromString("611da390-40a5-4ce4-afdb-f29b0073877a");
         String url = "/api/identities/{identityId}?provider=" + provider;
         EntityExchangeResult<Identity> result = this.webTestClient.get().uri(url, identityId).accept(MediaType.APPLICATION_JSON)
                 .exchange().expectStatus().isOk().expectBody(Identity.class)
@@ -67,15 +69,8 @@ public class AppControllerTest {
                                         .attributes(constraints("소셜인증은 필수야"))
                                         .description("소셜인증 제공자")
                         ),
-//                        // body
-//                        requestFields(
-//                                fieldWithPath("provider")
-//                                        .type(JsonFieldType.STRING)
-////                                        .attributes(getRequireTrue())
-//                                        .description("소셜인증 제공자")
-//
-//                        ),
                         responseFields(
+                                fieldWithPath("sequence").type(JsonFieldType.STRING).optional().description("인증 순서"),
                                 fieldWithPath("id").type(JsonFieldType.STRING).description("인증 Id"),
                                 fieldWithPath("provider").type(JsonFieldType.STRING).description("소셜인증 제공자")
                         )

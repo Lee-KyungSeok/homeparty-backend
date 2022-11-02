@@ -1,26 +1,44 @@
 package identity;
 
-import lombok.EqualsAndHashCode;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.ToString;
+import lombok.extern.slf4j.Slf4j;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
+import java.util.UUID;
+
+@Table(name = "t_identity")
+@Entity
 @Getter
+@Builder
+@AllArgsConstructor
+@ToString
+@Slf4j
 public class Identity {
-    String id;
-    String provider;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "sequence")
+    private Long sequence;
+
+    @Column(name = "id", columnDefinition = "varchar(36)", unique = true, nullable = false)
+    @JdbcTypeCode(SqlTypes.CHAR)
+    private UUID id;
+
+
+    @Column(name = "provider", columnDefinition = "varchar(50)")
+    private String provider;
 
     protected Identity() {
     }
 
-    public Identity(String id, String provider) {
+    public Identity(UUID id, String provider) {
+        log.info("without sequence: id: {}, provider: {}", id, provider);
         this.id = id;
         this.provider = provider;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public String getProvider() {
-        return provider;
     }
 }

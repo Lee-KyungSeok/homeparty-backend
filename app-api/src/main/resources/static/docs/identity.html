@@ -450,7 +450,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">$ curl 'http://localhost:49780/api/identities/23?provider=kakao' -i -X GET \
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ curl 'http://localhost:50417/api/identities/611da390-40a5-4ce4-afdb-f29b0073877a?provider=kakao' -i -X GET \
     -H 'accept-encoding: gzip' \
     -H 'user-agent: ReactorNetty/1.1.0-RC1' \
     -H 'Accept: application/json'</code></pre>
@@ -516,10 +516,10 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code class="language-http" data-lang="http">GET /api/identities/23?provider=kakao HTTP/1.1
+<pre class="highlight nowrap"><code class="language-http" data-lang="http">GET /api/identities/611da390-40a5-4ce4-afdb-f29b0073877a?provider=kakao HTTP/1.1
 accept-encoding: gzip
 user-agent: ReactorNetty/1.1.0-RC1
-host: localhost:49780
+host: localhost:50417
 Accept: application/json</code></pre>
 </div>
 </div>
@@ -544,6 +544,11 @@ Accept: application/json</code></pre>
 </thead>
 <tbody>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sequence</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">인증 순서</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>id</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">인증 Id</p></td>
@@ -563,11 +568,12 @@ Accept: application/json</code></pre>
 <pre class="highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json
 Transfer-Encoding: chunked
-Date: Mon, 31 Oct 2022 15:37:33 GMT
-Content-Length: 41
+Date: Wed, 02 Nov 2022 05:27:40 GMT
+Content-Length: 96
 
 {
-  "id" : "23",
+  "sequence" : null,
+  "id" : "611da390-40a5-4ce4-afdb-f29b0073877a",
   "provider" : "kakao"
 }</code></pre>
 </div>

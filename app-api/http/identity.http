@@ -1,0 +1,11 @@
+### CreateIdentity
+POST http://localhost:8080/api/identities/ad99cf21-63bb-4127-b9f0-15cbdf709ef2
+Content-Type: application/json
+
+{
+  "provider": "kakao"
+}
+
+### GET identity
+GET http://localhost:8080/api/identities/ad99cf21-63bb-4127-b9f0-15cbdf709ef2?provider=kakao
+Content-Type: application/json
