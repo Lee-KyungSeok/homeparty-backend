@@ -1,8 +1,14 @@
 spring:
+  jpa:
+    show-sql: true
+
+homeparty:
   datasource:
-    hikari:
+    main:
       driver-class-name: com.mysql.cj.jdbc.Driver
-      jdbc-url: jdbc:mysql:localhost:3306/homeparty_main_test
+      jdbc-url: jdbc:mysql://127.0.0.1:3306/homeparty_main_test
       username: root
       password: mysql
       maximum-pool-size: 3
+
+
