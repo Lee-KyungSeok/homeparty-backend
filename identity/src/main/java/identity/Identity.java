@@ -37,7 +37,6 @@ public class Identity {
     }
 
     public Identity(UUID id, String provider) {
-        log.info("without sequence: id: {}, provider: {}", id, provider);
         this.id = id;
         this.provider = provider;
     }
