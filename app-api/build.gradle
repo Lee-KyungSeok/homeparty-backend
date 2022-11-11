@@ -53,18 +53,29 @@ build {
     dependsOn copyDocument
 }
 
+//dependencyManagement {
+//    imports {
+//        mavenBom "io.awspring.cloud:spring-cloud-aws-dependencies:3.0.0-M3"
+//    }
+//}
+
 dependencies {
     implementation project(':identity')
 
     implementation 'org.springframework.boot:spring-boot-starter-webflux'
     implementation 'org.springframework.boot:spring-boot-starter-web'
 //    implementation 'org.springframework.boot:spring-boot-starter-security'
-
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     runtimeOnly 'mysql:mysql-connector-java'
 
+    implementation platform('software.amazon.awssdk:bom:2.18.25')
+    implementation 'io.awspring.cloud:spring-cloud-aws-starter:3.0.0-M3'
+    implementation 'io.awspring.cloud:spring-cloud-aws-starter-sqs:3.0.0-M3'
+
     implementation 'io.springfox:springfox-swagger-ui:3.0.0'
     implementation 'io.springfox:springfox-swagger2:3.0.0'
+
+    implementation "ca.pjer:logback-awslogs-appender:1.6.0"
 
     testImplementation 'com.h2database:h2'
     testImplementation 'org.projectlombok:lombok'

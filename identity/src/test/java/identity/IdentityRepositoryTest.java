@@ -1,5 +1,7 @@
 package identity;
 
+import identity.domain.Identity;
+import identity.domain.IdentityRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -17,7 +19,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @DataJpaTest
 @Slf4j
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-public class IdentityWithSpringRepositoryTest {
+public class IdentityRepositoryTest {
 
     @Autowired
     private IdentityRepository identityRepository;

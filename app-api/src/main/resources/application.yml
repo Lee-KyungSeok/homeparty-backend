@@ -1,3 +1,7 @@
+spring:
+  jpa:
+    open-in-view: false
+
 homeparty:
   datasource:
     main:
@@ -7,4 +11,15 @@ homeparty:
       password: ${DATASOURCE_MAIN_PASSWORD}
       maximum-pool-size: ${DATASOURCE_MAIN_MAXIMUM_POOL_SIZE}
 
+slack:
+  error-webhook-uri: ${SLACK_ERROR_WEBHOOK_URI}
+  user-webhook-uri: ${SLACK_USER_WEBHOOK_URI}
 
+cloud:
+  aws:
+    region:
+      static: ap-northeast-2
+    s3:
+      bucket: ${AWS_S3_BUCKET}
+  cloudwatch:
+    log-group: ${AWS_CLOUDWATCH_LOG_GROUP}

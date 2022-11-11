@@ -1,14 +1,36 @@
 spring:
   jpa:
     show-sql: true
+    open-in-view: false
+  cloud:
+    aws:
+#      credentials:
+#        access-key: AKIAZO5BUGTPHM232Y4P
+#        secret-key: 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
+#        profile-name: stratospheric
+      region:
+        static: ap-northeast-2
+#      cloudwatch:
+#        log-group: sample-spring
 
 homeparty:
   datasource:
     main:
-      driver-class-name: com.mysql.cj.jdbc.Driver33
+      driver-class-name: com.mysql.cj.jdbc.Driver
       jdbc-url: jdbc:mysql://127.0.0.1:38291/homeparty_main
       username: root
       password: mysql
       maximum-pool-size: 3
+
+#cloud:
+#  aws:
+#    credentials:
+#      accessKey: AKIAZO5BUGTPHM232Y4P
+#      secretKey: u7UMDfBFQS1FdLUzmwYfFseiboItQaD7kyJoN/I7
+#      profile-name: stratospheric
+#    region:
+#      static: ap-northeast-2
+#  cloudwatch:
+#    log-group: sample-spring
 
 

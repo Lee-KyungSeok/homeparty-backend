@@ -1,5 +1,6 @@
-package identity;
+package identity.domain;
 
+import identity.domain.Identity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

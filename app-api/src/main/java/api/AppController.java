@@ -1,7 +1,7 @@
 package api;
 
-import identity.Identity;
-import identity.IdentityRepository;
+import identity.domain.Identity;
+import identity.domain.IdentityRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;

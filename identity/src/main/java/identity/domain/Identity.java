@@ -1,4 +1,4 @@
-package identity;
+package identity.domain;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
