@@ -17,4 +17,5 @@ dependencies {
     testImplementation 'com.h2database:h2'
     testImplementation 'org.projectlombok:lombok'
     testAnnotationProcessor 'org.projectlombok:lombok'
+    testImplementation 'io.github.autoparams:autoparams:1.1.1'
 }

@@ -1,4 +1,4 @@
-package identity.domain;
+package identity.domain.aggregates.identity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -29,15 +29,22 @@ public class Identity {
     @JdbcTypeCode(SqlTypes.CHAR)
     private UUID id;
 
+    @Column(name = "nickname", columnDefinition = "VARCHAR(50)")
+    private String nickname;
 
-    @Column(name = "provider", columnDefinition = "varchar(50)")
-    private String provider;
+    @Column(name = "email", columnDefinition = "VARCHAR(128)")
+    private String email;
+
+    @Embedded
+    private SocialProvider provider;
 
     protected Identity() {
     }
 
-    public Identity(UUID id, String provider) {
+    public Identity(UUID id, String nickname, String email, SocialProvider provider) {
         this.id = id;
+        this.nickname = nickname;
+        this.email = email;
         this.provider = provider;
     }
 }
