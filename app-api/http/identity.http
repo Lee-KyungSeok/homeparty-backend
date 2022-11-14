@@ -9,3 +9,8 @@ Content-Type: application/json
 ### GET identity
 GET http://localhost:8080/api/identities/ad99cf21-63bb-4127-b9f0-15cbdf709ef2?provider=kakao
 Content-Type: application/json
+
+### Kakao Api
+GET https://kapi.kakao.com/v2/user/me
+Authorization: Bearer 16e3VE0j9OWjD-SCYTuLBLFpDFluFKIkzg4y18bRCisNHgAAAYT6pKXq
+Content-Type: application/json
