@@ -28,6 +28,9 @@ public class SocialProvider {
     @Column(name = "social_email", columnDefinition = "VARCHAR(255)")
     private String socialEmail;
 
+    @Column(name = "social_image_url", columnDefinition = "VARCHAR(510)")
+    private String socialImageUrl;
+
     protected SocialProvider() {
     }
 

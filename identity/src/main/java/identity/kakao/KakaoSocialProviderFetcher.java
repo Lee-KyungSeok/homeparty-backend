@@ -19,7 +19,8 @@ public class KakaoSocialProviderFetcher implements SocialProviderFetcher {
                 providerType,
                 kakaoUser.getId(),
                 kakaoUser.getProperties().getNickname(),
-                kakaoUser.getKakaoAccount().getEmail()
+                kakaoUser.getKakaoAccount().getEmail(),
+                kakaoUser.getProperties().getProfileImage()
         );
     }
 }

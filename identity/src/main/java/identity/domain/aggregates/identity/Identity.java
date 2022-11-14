@@ -32,6 +32,9 @@ public class Identity {
     @Column(name = "nickname", columnDefinition = "VARCHAR(50)")
     private String nickname;
 
+    @Column(name = "profile_image_url", columnDefinition = "VARCHAR(255)")
+    private String profileImageUrl;
+
     @Column(name = "email", columnDefinition = "VARCHAR(128)")
     private String email;
 

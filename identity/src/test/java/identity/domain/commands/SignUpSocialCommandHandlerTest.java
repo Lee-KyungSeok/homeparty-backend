@@ -37,11 +37,14 @@ public class SignUpSocialCommandHandlerTest {
     public void Sut_throw_AlreadySignUpException(
             Identity identity,
             String socialId,
+            String socialNickname,
+            String socialEmail,
+            String socialImageUrl,
             SignUpSocialCommand command
     ) {
         // given
         setSocialIdAndType(identity, socialId, command.providerType);
-        SocialProviderFetcher fetcher = (type, token) -> new SocialProvider(type, socialId, "nickname", "email");
+        SocialProviderFetcher fetcher = socialProviderFetcherTestDouble(socialId, socialNickname, socialEmail, socialImageUrl);
         identityRepository.save(identity);
 
         var sut = new SignUpSocialCommandHandler(fetcher, identityRepository);
@@ -57,10 +60,13 @@ public class SignUpSocialCommandHandlerTest {
     @AutoSource()
     public void Sut_save_Identity(
             String socialId,
+            String socialNickname,
+            String socialEmail,
+            String socialImageUrl,
             SignUpSocialCommand command
     ) {
         // given
-        SocialProviderFetcher fetcher = (type, token) -> new SocialProvider(type, socialId, "nickname", "email@" + type);
+        SocialProviderFetcher fetcher = socialProviderFetcherTestDouble(socialId, socialNickname, socialEmail, socialImageUrl);
 
         var sut = new SignUpSocialCommandHandler(fetcher, identityRepository);
 
@@ -69,11 +75,32 @@ public class SignUpSocialCommandHandlerTest {
 
         // then
         var actual =  identityRepository.findById(command.identityId);
-        assertThat(actual.get().getNickname()).isEqualTo("nickname");
-        assertThat(actual.get().getEmail()).isEqualTo("email@" + command.providerType);
+        assertThat(actual.get().getNickname()).isEqualTo(socialNickname);
+        assertThat(actual.get().getEmail()).isEqualTo(socialEmail);
         assertThat(actual.get().getProvider())
                 .usingRecursiveComparison()
-                .isEqualTo(new SocialProvider(command.providerType, socialId, "nickname", "email@" + command.providerType));
+                .isEqualTo(new SocialProvider(
+                        command.providerType,
+                        socialId,
+                        socialNickname,
+                        socialEmail,
+                        socialImageUrl
+                ));
+    }
+
+    private static SocialProviderFetcher socialProviderFetcherTestDouble(
+            String socialId,
+            String socialNickname,
+            String socialEmail,
+            String socialImageUrl
+    ) {
+        return (type, token) -> new SocialProvider(
+                type,
+                socialId,
+                socialNickname,
+                socialEmail,
+                socialImageUrl
+        );
     }
 
     private static void setSocialIdAndType(Identity identity, String socialId, SocialProviderType providerType) {
