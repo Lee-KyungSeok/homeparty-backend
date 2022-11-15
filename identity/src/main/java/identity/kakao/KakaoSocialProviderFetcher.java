@@ -4,10 +4,10 @@ import identity.domain.aggregates.identity.SocialProvider;
 import identity.domain.aggregates.identity.SocialProviderType;
 import identity.domain.models.SocialProviderFetcher;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Component;
 
 @RequiredArgsConstructor
-@Slf4j
+@Component(value = "kakao_provider_fetcher")
 public class KakaoSocialProviderFetcher implements SocialProviderFetcher {
 
     private final KakaoClient kakaoClient;

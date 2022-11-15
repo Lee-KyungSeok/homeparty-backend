@@ -20,7 +20,7 @@ public class KakaoSocialProviderFetcherTest {
     @ParameterizedTest
     @AutoSource()
     @Disabled
-    public void Sut_Return_KakaoSocialProvider(KakaoClient kakaoClient) {
+    public void sut_return_kakaoSocialProvider(KakaoClient kakaoClient) {
 
         // given
         String accessToken = "16e3VE0j9OWjD-SCYTuLBLFpDFluFKIkzg4y18bRCisNHgAAAYT6pKXq";

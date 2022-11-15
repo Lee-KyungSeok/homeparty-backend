@@ -34,7 +34,7 @@ public class SignUpSocialCommandHandlerTest {
     @DisplayName("이미 가입되어 있다면 에러를 반환한다.")
     @ParameterizedTest
     @AutoSource()
-    public void Sut_throw_AlreadySignUpException(
+    public void sut_fails_if_already_sign_up(
             Identity identity,
             String socialId,
             String socialNickname,
@@ -58,7 +58,7 @@ public class SignUpSocialCommandHandlerTest {
     @DisplayName("새로운 identity 를 저장한다.")
     @ParameterizedTest
     @AutoSource()
-    public void Sut_save_Identity(
+    public void sut_save_identity(
             String socialId,
             String socialNickname,
             String socialEmail,

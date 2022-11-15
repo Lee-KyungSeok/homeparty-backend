@@ -17,7 +17,6 @@ import java.util.UUID;
 @Builder
 @AllArgsConstructor
 @ToString
-@Slf4j
 public class Identity {
 
     @Id
