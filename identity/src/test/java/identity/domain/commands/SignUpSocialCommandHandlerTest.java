@@ -50,8 +50,9 @@ public class SignUpSocialCommandHandlerTest {
         var sut = new SignUpSocialCommandHandler(fetcher, identityRepository);
 
         // when
-        // then
         IdentityException actual = assertThrows(IdentityException.class, () -> sut.handle(command));
+
+        // then
         assertThat(actual).isEqualTo(new IdentityException(IdentityExceptionCode.ALREADY_SIGN_UP));
     }
 

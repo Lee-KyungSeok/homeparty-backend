@@ -2,10 +2,7 @@ package identity.jwt;
 
 import io.jsonwebtoken.io.Decoders;
 import lombok.Getter;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
 
-@Component
 @Getter
 public class JwtAuthTokenConfig {
 
@@ -19,7 +16,7 @@ public class JwtAuthTokenConfig {
 
     public static final Long REFRESH_TOKEN_EXPIRATION_TIME = 14 * 24 * 3600 * 1000L; // 2 weeks
 
-    public JwtAuthTokenConfig(@Value("${homeparty.jwt.secret}") String secretKey) {
+    public JwtAuthTokenConfig(String secretKey) {
         this.secretKey = secretKey;
         this.secretKeyByte = Decoders.BASE64.decode(secretKey);
     }

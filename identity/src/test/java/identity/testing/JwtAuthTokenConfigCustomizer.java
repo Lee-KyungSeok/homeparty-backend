@@ -1,8 +1,9 @@
-package identity.jwt;
+package identity.testing;
 
 import autoparams.customization.Customizer;
 import autoparams.generator.ObjectContainer;
 import autoparams.generator.ObjectGenerator;
+import identity.jwt.JwtAuthTokenConfig;
 
 public class JwtAuthTokenConfigCustomizer implements Customizer {
 

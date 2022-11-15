@@ -14,7 +14,7 @@ public class GenerateAuthTokenCommandHandler {
     private final AuthTokenGenerator authTokenGenerator;
 
     public AuthToken handle(GenerateAuthTokenCommand command) {
-        return null;
+        return authTokenGenerator.generate(command.identityId.toString());
     }
 
 }

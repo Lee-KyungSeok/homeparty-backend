@@ -4,7 +4,7 @@ package identity.jwt;
 import autoparams.AutoSource;
 import autoparams.customization.Customization;
 import identity.domain.aggregates.authtoken.AuthToken;
-import lombok.extern.slf4j.Slf4j;
+import identity.testing.JwtAuthTokenConfigCustomizer;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
