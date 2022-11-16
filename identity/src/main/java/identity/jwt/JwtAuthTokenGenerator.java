@@ -4,7 +4,6 @@ import identity.domain.aggregates.authtoken.AuthToken;
 import identity.domain.models.AuthTokenGenerator;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -27,28 +26,31 @@ public class JwtAuthTokenGenerator implements AuthTokenGenerator {
     @Override
     public AuthToken generate(String id) {
 
-        long now = Timestamp.valueOf(LocalDateTime.now()).getTime();
-        long accessTokenExpiredTime = now + JwtAuthTokenConfig.ACCESS_TOKEN_EXPIRATION_TIME;
-        long refreshTokenExpiredTime = now + JwtAuthTokenConfig.REFRESH_TOKEN_EXPIRATION_TIME;
-
-        Map<String, Object> claims = new HashMap<>();
-        claims.put("id", id);
-
         Key key = Keys.hmacShaKeyFor(config.getSecretKeyByte());
 
+        long now = Timestamp.valueOf(LocalDateTime.now()).getTime();
+        long accessTokenExpiredTime = now + config.getAccessTokenExpirationTime();
+        long refreshTokenExpiredTime = now + config.getRefreshTokenExpirationTime();
+
+        Map<String, Object> accessTokenClaims = new HashMap<>();
+        accessTokenClaims.put(config.getTokenType(), config.getAccessTokenType());
+
         String accessToken = Jwts.builder()
-                .setClaims(claims)
+                .setClaims(accessTokenClaims)
                 .setSubject(id)
-                .setIssuer(JwtAuthTokenConfig.ISSUER)
+                .setIssuer(config.getIssuer())
                 .setIssuedAt(new Date(now))
                 .setExpiration(new Date(accessTokenExpiredTime))
                 .signWith(key, SignatureAlgorithm.HS256)
                 .compact();
 
+        Map<String, Object> refreshTokenClaims = new HashMap<>();
+        accessTokenClaims.put(config.getTokenType(), config.getRefreshTokenType());
+
         String refreshToken = Jwts.builder()
-                .setClaims(claims)
+                .setClaims(refreshTokenClaims)
                 .setSubject(id)
-                .setIssuer(JwtAuthTokenConfig.ISSUER)
+                .setIssuer(config.getIssuer())
                 .setIssuedAt(new Date(now))
                 .setExpiration(new Date(refreshTokenExpiredTime))
                 .signWith(key, SignatureAlgorithm.HS256)

@@ -6,18 +6,26 @@ import lombok.Getter;
 @Getter
 public class JwtAuthTokenConfig {
 
-    private String secretKey;
+    private final String secretKey;
 
-    private byte[] secretKeyByte;
+    private final byte[] secretKeyByte;
 
-    public static final String ISSUER = "accounts.homeparty.com";
-
-    public static final Long ACCESS_TOKEN_EXPIRATION_TIME = 24 * 3600 * 1000L; // 1 days
-
-    public static final Long REFRESH_TOKEN_EXPIRATION_TIME = 14 * 24 * 3600 * 1000L; // 2 weeks
+    private final String issuer;
+    private final String tokenType;
+    private final String accessTokenType;
+    private final String refreshTokenType;
+    private final Long accessTokenExpirationTime;
+    private final Long refreshTokenExpirationTime;
 
     public JwtAuthTokenConfig(String secretKey) {
         this.secretKey = secretKey;
+
         this.secretKeyByte = Decoders.BASE64.decode(secretKey);
+        this.issuer = "accounts.homeparty.com";
+        this.tokenType = "tokenType";
+        this.accessTokenType = "access";
+        this.refreshTokenType = "refresh";
+        this.accessTokenExpirationTime = 24 * 3600 * 1000L; // 1 days
+        this.refreshTokenExpirationTime = 14 * 24 * 3600 * 1000L; // 2 weeks
     }
 }

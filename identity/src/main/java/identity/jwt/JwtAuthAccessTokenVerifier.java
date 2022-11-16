@@ -6,7 +6,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
-import java.util.Base64;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -19,20 +18,11 @@ public class JwtAuthAccessTokenVerifier implements AuthAccessTokenVerifier {
 
     @Override
     public Optional<UUID> verify(String accessToken) {
-        return parseClaims(accessToken)
-                .map(claims -> getSubject(claims, accessToken));
+        return verifyToken(accessToken)
+                .map(claims -> verifyClaims(claims, accessToken));
     }
 
-    public UUID getSubject(Claims claims, String accessToken) {
-        try {
-            return UUID.fromString(claims.getSubject());
-        } catch (IllegalArgumentException e) {
-            log.error("subject 가 uuid 가 아닙니다. accessToken: {}", accessToken, e);
-            return null;
-        }
-    }
-
-    public Optional<Claims> parseClaims(String accessToken) {
+    public Optional<Claims> verifyToken(String accessToken) {
         try {
             Claims claims = Jwts.parserBuilder()
                     .setSigningKey(config.getSecretKeyByte())
@@ -53,6 +43,21 @@ public class JwtAuthAccessTokenVerifier implements AuthAccessTokenVerifier {
         } catch (IllegalArgumentException e) {
             log.error("잘못된 토큰입니다. accessToken: {}", accessToken, e);
             return Optional.empty();
+        }
+    }
+
+    public UUID verifyClaims(Claims claims, String accessToken) {
+        String tokenType = claims.get(config.getTokenType(), String.class);
+        if (!config.getAccessTokenType().equals(tokenType)) {
+            log.error("tokenType 이 유효하지 않습니다. accessToken: {}", accessToken);
+            return null;
+        }
+
+        try {
+            return UUID.fromString(claims.getSubject());
+        } catch (IllegalArgumentException e) {
+            log.error("subject 가 uuid 가 아닙니다. accessToken: {}", accessToken, e);
+            return null;
         }
     }
 }
