@@ -1,9 +1,11 @@
 package identity.domain.commands;
 
+import identity.domain.aggregates.authtoken.AuthToken;
 import identity.domain.aggregates.identity.Identity;
 import identity.domain.aggregates.identity.IdentityRepository;
 import identity.domain.exception.IdentityException;
 import identity.domain.exception.IdentityExceptionCode;
+import identity.domain.models.AuthTokenGenerator;
 import identity.domain.models.SocialProviderFetcher;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,9 +19,10 @@ import java.util.Optional;
 public class SignUpSocialCommandHandler {
 
     private final SocialProviderFetcher socialProviderFetcher;
+    private final AuthTokenGenerator authTokenGenerator;
     private final IdentityRepository identityRepository;
 
-    public void handle(SignUpSocialCommand command) {
+    public AuthToken handle(SignUpSocialCommand command) {
         var socialProvider = socialProviderFetcher.fetch(command.providerType, command.providerToken);
         checkAlreadySignUp(socialProvider.getSocialId());
 
@@ -30,6 +33,8 @@ public class SignUpSocialCommandHandler {
                 socialProvider);
 
         identityRepository.save(identity);
+
+        return authTokenGenerator.generate(identity.getId().toString());
     }
 
     public void checkAlreadySignUp(String socialId) {

@@ -1,13 +1,16 @@
 package identity.domain.commands;
 
 import autoparams.AutoSource;
+import autoparams.customization.Customization;
 import identity.domain.aggregates.identity.Identity;
 import identity.domain.aggregates.identity.IdentityRepository;
 import identity.domain.aggregates.identity.SocialProvider;
 import identity.domain.aggregates.identity.SocialProviderType;
 import identity.domain.exception.IdentityException;
 import identity.domain.exception.IdentityExceptionCode;
+import identity.domain.models.AuthTokenGenerator;
 import identity.domain.models.SocialProviderFetcher;
+import identity.testing.CommandsCustomizer;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -34,12 +37,14 @@ public class SignUpSocialCommandHandlerTest {
     @DisplayName("이미 가입되어 있다면 에러를 반환한다.")
     @ParameterizedTest
     @AutoSource()
+    @Customization(CommandsCustomizer.class)
     public void sut_fails_if_already_sign_up(
             Identity identity,
             String socialId,
             String socialNickname,
             String socialEmail,
             String socialImageUrl,
+            AuthTokenGenerator authTokenGenerator,
             SignUpSocialCommand command
     ) {
         // given
@@ -47,7 +52,7 @@ public class SignUpSocialCommandHandlerTest {
         SocialProviderFetcher fetcher = socialProviderFetcherTestDouble(socialId, socialNickname, socialEmail, socialImageUrl);
         identityRepository.save(identity);
 
-        var sut = new SignUpSocialCommandHandler(fetcher, identityRepository);
+        var sut = new SignUpSocialCommandHandler(fetcher, authTokenGenerator, identityRepository);
 
         // when
         IdentityException actual = assertThrows(IdentityException.class, () -> sut.handle(command));
@@ -59,17 +64,19 @@ public class SignUpSocialCommandHandlerTest {
     @DisplayName("새로운 identity 를 저장한다.")
     @ParameterizedTest
     @AutoSource()
+    @Customization(CommandsCustomizer.class)
     public void sut_save_identity(
             String socialId,
             String socialNickname,
             String socialEmail,
             String socialImageUrl,
+            AuthTokenGenerator authTokenGenerator,
             SignUpSocialCommand command
     ) {
         // given
         SocialProviderFetcher fetcher = socialProviderFetcherTestDouble(socialId, socialNickname, socialEmail, socialImageUrl);
 
-        var sut = new SignUpSocialCommandHandler(fetcher, identityRepository);
+        var sut = new SignUpSocialCommandHandler(fetcher, authTokenGenerator, identityRepository);
 
         // when
         sut.handle(command);
@@ -87,6 +94,32 @@ public class SignUpSocialCommandHandlerTest {
                         socialEmail,
                         socialImageUrl
                 ));
+    }
+
+    @DisplayName("AuthToken 을 반환한다.")
+    @ParameterizedTest
+    @AutoSource()
+    @Customization(CommandsCustomizer.class)
+    public void sut_return_authToken(
+            String socialId,
+            String socialNickname,
+            String socialEmail,
+            String socialImageUrl,
+            AuthTokenGenerator authTokenGenerator,
+            SignUpSocialCommand command
+    ) {
+        // given
+        SocialProviderFetcher fetcher = socialProviderFetcherTestDouble(socialId, socialNickname, socialEmail, socialImageUrl);
+        var sut = new SignUpSocialCommandHandler(fetcher, authTokenGenerator, identityRepository);
+
+        // when
+        var actual = sut.handle(command);
+
+        // then
+        assertThat(actual.getAccessToken()).isNotNull();
+        assertThat(actual.getAccessTokenExpiredAt()).isNotNull();
+        assertThat(actual.getRefreshToken()).isNotNull();
+        assertThat(actual.getRefreshTokenExpiredAt()).isNotNull();
     }
 
     private static SocialProviderFetcher socialProviderFetcherTestDouble(
