@@ -1,13 +1,24 @@
 package api;
 
+import invitation.domain.Invitation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
 @Slf4j
 public class AppController {
+//    @GetMapping("/api/invitation/{invitationId}")
+//    public Invitation getInvitation(
+//            @PathVariable String invitationId
+//    ) {
+//        return new Invitation(UUID.fromString(invitationId), "hi");
+//    }
 
 //    private final IdentityRepository identityRepository;
 //

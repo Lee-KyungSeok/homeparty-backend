@@ -11,5 +11,6 @@ rootProject.name = 'backend'
 
 // 사용할 도메인 설정
 include 'identity'
+include 'invitation'
 include 'app-api'
 

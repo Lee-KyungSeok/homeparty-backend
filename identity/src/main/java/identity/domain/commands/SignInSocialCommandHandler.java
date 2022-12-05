@@ -34,15 +34,5 @@ public class SignInSocialCommandHandler {
         }
 
         return authTokenGenerator.generate(identity.get().getId().toString());
-
-//        checkAlreadySignUp(socialProvider.getSocialId());
-//
-//        Identity identity = new Identity(
-//                command.identityId,
-//                socialProvider.getSocialNickname(),
-//                socialProvider.getSocialEmail(),
-//                socialProvider);
-//
-//        identityRepository.save(identity);
     }
 }
