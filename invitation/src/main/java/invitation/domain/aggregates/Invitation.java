@@ -55,4 +55,14 @@ public class Invitation {
 
     protected Invitation() {
     }
+
+    public Invitation(UUID id, UUID hostId, String title, String description, String type, LocalDateTime partiedAt, InvitationLocation location) {
+        this.id = id;
+        this.hostId = hostId;
+        this.title = title;
+        this.description = description;
+        this.type = type;
+        this.partiedAt = partiedAt;
+        this.location = location;
+    }
 }
