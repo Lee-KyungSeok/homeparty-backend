@@ -13,8 +13,8 @@ CREATE TABLE `t_identity`
     `updated_at`           TIMESTAMP           NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     `left_at`              TIMESTAMP           NULL     DEFAULT NULL COMMENT '유저가 탈퇴한 시각, 탈퇴하지 않았다면 null',
     PRIMARY KEY (`sequence`),
-    UNIQUE KEY `uix-user_identity-id` (`id`),
-    UNIQUE KEY `uix-user_identity-social_info` (`social_id`, `social_provider_type`),
+    UNIQUE KEY `uix-identity-id` (`id`),
+    UNIQUE KEY `uix-identity-social_info` (`social_id`, `social_provider_type`),
     KEY `idx-user_identity-email` (`email`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT '유저 인증 정보';

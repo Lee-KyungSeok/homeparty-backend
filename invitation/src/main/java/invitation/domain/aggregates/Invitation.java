@@ -1,9 +1,6 @@
 package invitation.domain.aggregates;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -12,33 +9,49 @@ import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.UUID;
 
+@Table(name = "t_invitation")
+@Entity
 @Getter
 @Builder
 @AllArgsConstructor
 @ToString
 public class Invitation {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "sequence")
     private Long sequence;
 
-    private UUID id;g
+    @Column(name = "id", columnDefinition = "varchar(36)", unique = true, nullable = false)
+    @JdbcTypeCode(SqlTypes.CHAR)
+    private UUID id;
 
+    @Column(name = "host_id", columnDefinition = "varchar(36)", nullable = false)
+    @JdbcTypeCode(SqlTypes.CHAR)
+    private UUID hostId;
+
+    @Column(name = "title")
     private String title;
 
-    private String type;
-
-    private LocalDateTime partiedAt;
-
-    private String location;
-
+    @Column(name = "description")
     private String description;
 
-    private List<String> dressCodes;
+    @Column(name = "type")
+    private String type;
 
-    private List<String> foods;
+    @Column(name = "partied_at", columnDefinition = "TIMESTAMP")
+    private LocalDateTime partiedAt;
 
-    // Todo 추후에 card 관련사항 추가되어야 함.
+    @Embedded
+    private InvitationLocation location;
+
+    // Todo 추후에 card 관련사항 추가 + 아래는 기획 보고 결정할 것
+//    @Column(name = "dress_codes")
+//    private List<String> dressCodes;
+//
+//    @Column(name = "foods")
+//    private List<String> foods;
 
     protected Invitation() {
     }

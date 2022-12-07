@@ -11,7 +11,7 @@ SCRIPT_REAL=$(realpath -s "$0")
 SCRIPT_DIR=$(dirname "$SCRIPT_REAL")
 
 COMMAND_LIST=( "gen" "run" "revert" "clean" "seed" "reset" )
-DOMAIN_LIST=( "identity" )
+DOMAIN_LIST=( "identity" "invitation" )
 
 help() {
   cat <<EOF
@@ -187,13 +187,15 @@ elif [ $command == "run" ]; then
 elif [ $command == "clean" ]; then
   echo "migration clean start..."
 
-  if [ $domain == "all" ]; then
-    for DOMAIN in "${DOMAIN_LIST[@]}"; do
-        migrate_flyway clean "$DOMAIN" migration
-    done
-  else
-    migrate_flyway clean $domain
-  fi
+# Todo Clean 의 경우 migration 파일 체크 없이 싹다 삭제하므로 추후 수정 필요할듯 (그래서 일단 identity 로 지정해서 삭제함)
+  migrate_flyway clean identity
+#  if [ $domain == "all" ]; then
+#    for DOMAIN in "${DOMAIN_LIST[@]}"; do
+#        migrate_flyway clean "$DOMAIN" migration
+#    done
+#  else
+#    migrate_flyway clean $domain
+#  fi
 
 elif [ $command == "seed" ]; then
   echo "migration seed start..."
@@ -209,9 +211,12 @@ elif [ $command == "seed" ]; then
 elif [ $command == "reset" ]; then
   echo "migrate reset..."
 
+# Todo Clean 의 경우 migration 파일 체크 없이 싹다 삭제하므로 추후 수정 필요할듯 (그래서 일단 identity 로 지정해서 삭제함)
+  migrate_flyway clean identity
+
   if [ $domain == "all" ]; then
     for DOMAIN in "${DOMAIN_LIST[@]}"; do
-      migrate_flyway clean "$DOMAIN" migration
+#      migrate_flyway clean "$DOMAIN" migration
       migrate_flyway migrate "$DOMAIN" migration
       migrate_flyway migrate "$DOMAIN" seed
     done
