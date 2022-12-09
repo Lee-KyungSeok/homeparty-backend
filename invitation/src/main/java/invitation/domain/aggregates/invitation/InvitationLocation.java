@@ -1,4 +1,4 @@
-package invitation.domain.aggregates;
+package invitation.domain.aggregates.invitation;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

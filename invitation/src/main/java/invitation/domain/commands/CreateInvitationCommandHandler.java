@@ -1,8 +1,8 @@
 package invitation.domain.commands;
 
-import invitation.domain.aggregates.Invitation;
-import invitation.domain.aggregates.InvitationLocation;
-import invitation.domain.aggregates.InvitationRepository;
+import invitation.domain.aggregates.invitation.Invitation;
+import invitation.domain.aggregates.invitation.InvitationLocation;
+import invitation.domain.aggregates.invitation.InvitationRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

@@ -1,4 +1,4 @@
-package invitation.domain.aggregates;
+package invitation.domain.aggregates.invitation;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

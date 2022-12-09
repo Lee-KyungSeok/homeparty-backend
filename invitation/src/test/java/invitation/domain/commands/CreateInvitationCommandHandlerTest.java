@@ -2,8 +2,8 @@ package invitation.domain.commands;
 
 import autoparams.AutoSource;
 import autoparams.customization.Customization;
-import invitation.domain.aggregates.InvitationLocation;
-import invitation.domain.aggregates.InvitationRepository;
+import invitation.domain.aggregates.invitation.InvitationLocation;
+import invitation.domain.aggregates.invitation.InvitationRepository;
 import invitation.testing.InvitationLocationCustomizer;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.DisplayName;

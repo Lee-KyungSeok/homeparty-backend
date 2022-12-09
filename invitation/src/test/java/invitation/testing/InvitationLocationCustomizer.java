@@ -4,7 +4,7 @@ import autoparams.customization.Customizer;
 import autoparams.generator.ObjectContainer;
 import autoparams.generator.ObjectGenerationContext;
 import autoparams.generator.ObjectGenerator;
-import invitation.domain.aggregates.InvitationLocation;
+import invitation.domain.aggregates.invitation.InvitationLocation;
 
 import java.math.BigDecimal;
 import java.util.concurrent.ThreadLocalRandom;
