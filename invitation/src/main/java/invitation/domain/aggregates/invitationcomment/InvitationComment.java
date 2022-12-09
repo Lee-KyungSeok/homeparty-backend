@@ -28,6 +28,10 @@ public class InvitationComment {
     @JdbcTypeCode(SqlTypes.CHAR)
     private UUID id;
 
+    @Column(name = "invitation_id", columnDefinition = "varchar(36)")
+    @JdbcTypeCode(SqlTypes.CHAR)
+    private UUID invitationId;
+
     @Column(name = "user_id", columnDefinition = "varchar(36)")
     @JdbcTypeCode(SqlTypes.CHAR)
     private UUID userId;
@@ -56,6 +60,7 @@ public class InvitationComment {
     @ConstructorProperties({"id", "userId", "name"})
     public InvitationComment(
             UUID id,
+            UUID invitationId,
             UUID userId,
             String name,
             String content,
@@ -63,6 +68,7 @@ public class InvitationComment {
             LocalDateTime commentedAt
     ) {
         this.id = id;
+        this.invitationId = invitationId;
         this.userId = userId;
         this.name = name;
         this.content = content;
