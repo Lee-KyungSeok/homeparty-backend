@@ -1,10 +1,8 @@
 package invitation.domain.repositories;
 
 import autoparams.AutoSource;
-import autoparams.customization.Customization;
-import invitation.domain.aggregates.invitation.Invitation;
-import invitation.domain.aggregates.invitation.InvitationRepository;
-import invitation.testing.InvitationLocationCustomizer;
+import invitation.domain.aggregates.invitationcomment.InvitationComment;
+import invitation.domain.aggregates.invitationcomment.InvitationCommentRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -20,25 +18,24 @@ import static org.assertj.core.api.Assertions.assertThat;
 @DataJpaTest
 @Slf4j
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-class InvitationRepositoryTest {
+class InvitationInvitationCommentRepositoryTest {
 
     @Autowired
-    private InvitationRepository sut;
+    private InvitationCommentRepository sut;
 
-    @DisplayName("invitation 를 저장한다.")
+    @DisplayName("초대장 댓글을 저장한다.")
     @ParameterizedTest
     @AutoSource()
-    @Customization(InvitationLocationCustomizer.class)
-    public void Sut_save_Invitation(Invitation invitation) {
+    public void sut_save_comment(InvitationComment invitationComment) {
 
         // when
-        sut.save(invitation);
+        sut.save(invitationComment);
 
         // then
-        var actual = sut.findById(invitation.getId());
+        var actual = sut.findById(invitationComment.getId());
         assertThat(actual.get())
                 .usingRecursiveComparison()
                 .ignoringFields("sequence")
-                .isEqualTo(invitation);
+                .isEqualTo(invitationComment);
     }
 }
