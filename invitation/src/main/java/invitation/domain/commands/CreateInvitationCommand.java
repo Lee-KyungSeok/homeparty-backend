@@ -17,6 +17,8 @@ public class CreateInvitationCommand {
     private String title;
     private String description;
     private String type;
+    private String dressCodes;
+    private String foods;
     private LocalDateTime partiedAt;
 
     private String locationName;

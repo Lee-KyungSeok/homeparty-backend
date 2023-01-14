@@ -40,28 +40,39 @@ public class Invitation {
     @Column(name = "type")
     private String type;
 
+    @Column(name = "dress_codes")
+    private String dressCodes;
+
+    @Column(name = "foods")
+    private String foods;
+
     @Column(name = "partied_at", columnDefinition = "TIMESTAMP")
     private LocalDateTime partiedAt;
 
     @Embedded
     private InvitationLocation location;
 
-    // Todo 추후에 card 관련사항 추가 + 아래는 기획 보고 결정할 것
-//    @Column(name = "dress_codes")
-//    private List<String> dressCodes;
-//
-//    @Column(name = "foods")
-//    private List<String> foods;
-
     protected Invitation() {
     }
 
-    public Invitation(UUID id, UUID hostId, String title, String description, String type, LocalDateTime partiedAt, InvitationLocation location) {
+    public Invitation(
+            UUID id,
+            UUID hostId,
+            String title,
+            String description,
+            String type,
+            String dressCodes,
+            String foods,
+            LocalDateTime partiedAt,
+            InvitationLocation location
+    ) {
         this.id = id;
         this.hostId = hostId;
         this.title = title;
         this.description = description;
         this.type = type;
+        this.dressCodes = dressCodes;
+        this.foods = foods;
         this.partiedAt = partiedAt;
         this.location = location;
     }

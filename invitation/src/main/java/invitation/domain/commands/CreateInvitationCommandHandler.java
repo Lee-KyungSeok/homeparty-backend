@@ -20,6 +20,8 @@ public class CreateInvitationCommandHandler {
                 command.getTitle(),
                 command.getDescription(),
                 command.getType(),
+                command.getDressCodes(),
+                command.getFoods(),
                 command.getPartiedAt(),
                 new InvitationLocation(
                         command.getLocationName(),

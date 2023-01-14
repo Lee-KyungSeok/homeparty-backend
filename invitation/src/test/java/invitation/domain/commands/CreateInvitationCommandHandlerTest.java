@@ -48,6 +48,8 @@ class CreateInvitationCommandHandlerTest {
         assertThat(actual.get().getTitle()).isEqualTo(command.getTitle());
         assertThat(actual.get().getDescription()).isEqualTo(command.getDescription());
         assertThat(actual.get().getType()).isEqualTo(command.getType());
+        assertThat(actual.get().getDressCodes()).isEqualTo(command.getDressCodes());
+        assertThat(actual.get().getFoods()).isEqualTo(command.getFoods());
         assertThat(actual.get().getPartiedAt()).isEqualTo(command.getPartiedAt());
         assertThat(actual.get().getLocation())
                 .usingRecursiveComparison()

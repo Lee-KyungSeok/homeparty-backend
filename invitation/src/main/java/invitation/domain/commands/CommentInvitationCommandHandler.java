@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -24,8 +25,7 @@ public class CommentInvitationCommandHandler {
     private final InvitationCommentRepository invitationCommentRepository;
 
     public void handle(CommentInvitationCommand command) {
-        Invitation invitation = invitationRepository.findById(command.getInvitationId())
-                .orElseThrow(() -> new InvitationException(InvitationExceptionCode.NOT_FOUND_INVITATION));
+        this.verifyInvitationExisted(command.getInvitationId());
 
         InvitationComment comment = new InvitationComment(
                 command.getCommentId(),
@@ -38,5 +38,10 @@ public class CommentInvitationCommandHandler {
         );
 
         invitationCommentRepository.save(comment);
+    }
+
+    public void verifyInvitationExisted(UUID invitationId) {
+        invitationRepository.findById(invitationId)
+                .orElseThrow(() -> new InvitationException(InvitationExceptionCode.NOT_FOUND_INVITATION));
     }
 }
