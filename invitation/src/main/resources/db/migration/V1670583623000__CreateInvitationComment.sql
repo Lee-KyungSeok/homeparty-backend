@@ -1,6 +1,6 @@
 CREATE TABLE `t_invitation_comment`
 (
-    `sequence`     BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+    `sequence`     BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
     `id`           VARCHAR(64)         NOT NULL COMMENT '초대장 댓글 id',
     `user_id`      VARCHAR(64)         NULL     DEFAULT NULL COMMENT '댓글 작성자 id(로그인 안할시 null)',
     `name`         VARCHAR(128)        NOT NULL COMMENT '댓글 작성자 이름',

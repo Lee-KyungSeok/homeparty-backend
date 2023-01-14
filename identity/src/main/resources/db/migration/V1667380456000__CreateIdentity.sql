@@ -1,6 +1,6 @@
 CREATE TABLE `t_identity`
 (
-    `sequence`             BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+    `sequence`             BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
     `id`                   VARCHAR(64)         NOT NULL COMMENT '유저 id',
     `nickname`             varchar(50)         NULL     DEFAULT NULL COMMENT '닉네임',
     `email`                VARCHAR(128)        NULL     DEFAULT NULL COMMENT '이메일',

@@ -1,6 +1,6 @@
 CREATE TABLE `t_invitation`
 (
-    `sequence`      BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+    `sequence`      BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
     `id`            VARCHAR(64)         NOT NULL COMMENT '초대장 id',
     `host_id`       VARCHAR(64)         NOT NULL COMMENT '파티 개최자 id',
     `title`         VARCHAR(128)        NOT NULL COMMENT '파티 제목',
