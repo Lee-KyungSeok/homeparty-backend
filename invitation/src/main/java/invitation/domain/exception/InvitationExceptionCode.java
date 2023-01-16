@@ -1,9 +1,10 @@
 package invitation.domain.exception;
 
+import abstraction.exeption.HomePartyExceptionCode;
 import lombok.Getter;
 
 @Getter
-public enum InvitationExceptionCode {
+public enum InvitationExceptionCode implements HomePartyExceptionCode {
 
     INVITATION_SERVER_ERROR(500, "INVITATION_001", "Internal Server Error"),
     NOT_FOUND_INVITATION(405, "IDENTITY_002", "not found invitation"),

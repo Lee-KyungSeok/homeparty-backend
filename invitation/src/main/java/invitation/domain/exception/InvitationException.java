@@ -1,6 +1,8 @@
 package invitation.domain.exception;
 
-public class InvitationException extends RuntimeException {
+import abstraction.exeption.HomePartyException;
+
+public class InvitationException extends RuntimeException implements HomePartyException {
 
     private final InvitationExceptionCode exceptionCode;
 

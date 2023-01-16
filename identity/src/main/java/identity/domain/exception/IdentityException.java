@@ -1,6 +1,8 @@
 package identity.domain.exception;
 
-public class IdentityException extends RuntimeException {
+import abstraction.exeption.HomePartyException;
+
+public class IdentityException extends RuntimeException implements HomePartyException {
 
     private final IdentityExceptionCode exceptionCode;
 

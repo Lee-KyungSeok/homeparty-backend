@@ -1,30 +1,26 @@
 package invitation.domain.commands;
 
-import invitation.domain.aggregates.invitation.Invitation;
+import abstraction.command.CommandHandler;
 import invitation.domain.aggregates.invitation.InvitationRepository;
 import invitation.domain.aggregates.invitationcomment.InvitationComment;
 import invitation.domain.aggregates.invitationcomment.InvitationCommentRepository;
 import invitation.domain.exception.InvitationException;
 import invitation.domain.exception.InvitationExceptionCode;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.Optional;
 import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
 @Slf4j
-public class CommentInvitationCommandHandler {
+public class CommentInvitationCommandHandler implements CommandHandler<CommentInvitationCommand, UUID> {
     private final InvitationRepository invitationRepository;
     private final InvitationCommentRepository invitationCommentRepository;
 
-    public void handle(CommentInvitationCommand command) {
+    public UUID handle(CommentInvitationCommand command) {
         this.verifyInvitationExisted(command.getInvitationId());
 
         InvitationComment comment = new InvitationComment(
@@ -38,6 +34,7 @@ public class CommentInvitationCommandHandler {
         );
 
         invitationCommentRepository.save(comment);
+        return comment.getId();
     }
 
     public void verifyInvitationExisted(UUID invitationId) {

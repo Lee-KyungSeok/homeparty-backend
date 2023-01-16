@@ -1,5 +1,6 @@
 package identity.domain.commands;
 
+import abstraction.command.CommandHandler;
 import identity.domain.aggregates.authtoken.AuthToken;
 import identity.domain.aggregates.identity.Identity;
 import identity.domain.aggregates.identity.IdentityRepository;
@@ -16,7 +17,7 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 @Slf4j
-public class SignUpSocialCommandHandler {
+public class SignUpSocialCommandHandler implements CommandHandler<SignUpSocialCommand, AuthToken> {
 
     private final SocialProviderFetcher socialProviderFetcher;
     private final AuthTokenGenerator authTokenGenerator;

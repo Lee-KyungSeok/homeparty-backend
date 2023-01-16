@@ -49,9 +49,6 @@ class CommentInvitationCommandHandlerTest {
         assertThat(actual).isEqualTo(new InvitationException(InvitationExceptionCode.NOT_FOUND_INVITATION));
     }
 
-    // Todo: 캐시 때문에 잘못된 entity 인데도 통과 되었다.
-    //  repository 를 바꿔줘야 할 듯 싶다.
-    // https://stackoverflow.com/questions/65011057/my-jpa-repository-request-is-returning-with-cache-without-me-enabling-it-in-spri
     @DisplayName("초대장 에 댓글을 단다.")
     @ParameterizedTest
     @CsvAutoSource({

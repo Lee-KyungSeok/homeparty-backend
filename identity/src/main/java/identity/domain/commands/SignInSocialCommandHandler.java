@@ -1,15 +1,13 @@
 package identity.domain.commands;
 
+import abstraction.command.CommandHandler;
 import identity.domain.aggregates.authtoken.AuthToken;
 import identity.domain.aggregates.identity.Identity;
 import identity.domain.aggregates.identity.IdentityRepository;
-import identity.domain.aggregates.identity.SocialProviderType;
 import identity.domain.exception.IdentityException;
 import identity.domain.exception.IdentityExceptionCode;
 import identity.domain.models.AuthTokenGenerator;
 import identity.domain.models.SocialProviderFetcher;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -19,7 +17,7 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 @Slf4j
-public class SignInSocialCommandHandler {
+public class SignInSocialCommandHandler implements CommandHandler<SignInSocialCommand, AuthToken> {
 
     private final SocialProviderFetcher socialProviderFetcher;
     private final AuthTokenGenerator authTokenGenerator;

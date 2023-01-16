@@ -1,5 +1,6 @@
 package invitation.domain.commands;
 
+import abstraction.command.CommandHandler;
 import invitation.domain.aggregates.invitationcard.InvitationCard;
 import invitation.domain.aggregates.invitationcard.InvitationCardRepository;
 import invitation.domain.aggregates.invitationcard.InvitationCardState;
@@ -7,14 +8,15 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
-public class CreateInvitationCardCommandHandler {
+public class CreateInvitationCardCommandHandler implements CommandHandler<CreateInvitationCardCommand, UUID> {
 
     private final InvitationCardRepository invitationCardRepository;
 
-    public void handle(CreateInvitationCardCommand command) {
+    public UUID handle(CreateInvitationCardCommand command) {
         InvitationCard invitationCard = new InvitationCard(
                 command.getCardId(),
                 command.getUploaderId(),
@@ -23,5 +25,6 @@ public class CreateInvitationCardCommandHandler {
                 LocalDateTime.now()
         );
         invitationCardRepository.save(invitationCard);
+        return invitationCard.getId();
     }
 }
