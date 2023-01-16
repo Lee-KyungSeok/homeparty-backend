@@ -1,13 +1,35 @@
 package api;
 
+import api.exception.ApiException;
+import api.exception.ApiExceptionCode;
+import identity.domain.exception.IdentityException;
+import identity.domain.exception.IdentityExceptionCode;
+import invitation.domain.exception.InvitationException;
+import invitation.domain.exception.InvitationExceptionCode;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
 @Slf4j
 public class AppController {
+    @GetMapping("/api/sample")
+    public void throwSample() {
+        throw new ApiException(ApiExceptionCode.INTERNAL_SERVER_ERROR);
+    }
+
+    @GetMapping("/api/sample/identity")
+    public void throwSampleIdentity() {
+        throw new IdentityException(IdentityExceptionCode.NEED_SIGN_UP);
+    }
+
+    @GetMapping("/api/sample/invitation")
+    public void throwSampleInvitation() {
+        throw new InvitationException(InvitationExceptionCode.NOT_FOUND_INVITATION);
+    }
+
 //    @GetMapping("/api/invitation/{invitationId}")
 //    public Invitation getInvitation(
 //            @PathVariable String invitationId

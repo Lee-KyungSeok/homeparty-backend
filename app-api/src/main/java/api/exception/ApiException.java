@@ -1,13 +1,13 @@
-package identity.domain.exception;
+package api.exception;
 
 import abstraction.exeption.HomePartyException;
 import abstraction.exeption.HomePartyExceptionCode;
 
-public class IdentityException extends HomePartyException {
+public class ApiException extends HomePartyException {
 
-    private final IdentityExceptionCode exceptionCode;
+    private final ApiExceptionCode exceptionCode;
 
-    public IdentityException(IdentityExceptionCode exceptionCode) {
+    public ApiException(ApiExceptionCode exceptionCode) {
         super(exceptionCode);
         this.exceptionCode = exceptionCode;
     }
@@ -27,9 +27,9 @@ public class IdentityException extends HomePartyException {
         if (this == obj) {
             return true;
         }
-        if (!(obj instanceof IdentityException)) {
+        if (!(obj instanceof ApiException)) {
             return false;
         }
-        return this.exceptionCode.getCode().equals(((IdentityException) obj).exceptionCode.getCode());
+        return this.exceptionCode.getCode().equals(((ApiException) obj).exceptionCode.getCode());
     }
 }

@@ -1,20 +1,23 @@
 package invitation.domain.exception;
 
 import abstraction.exeption.HomePartyException;
+import abstraction.exeption.HomePartyExceptionCode;
 
-public class InvitationException extends RuntimeException implements HomePartyException {
+public class InvitationException extends HomePartyException {
 
     private final InvitationExceptionCode exceptionCode;
 
     public InvitationException(InvitationExceptionCode exceptionCode) {
-        super(exceptionCode.getMessage());
+        super(exceptionCode);
         this.exceptionCode = exceptionCode;
     }
 
-    public InvitationExceptionCode getExceptionCode() {
+    @Override
+    public HomePartyExceptionCode getExceptionCode() {
         return exceptionCode;
     }
 
+    @Override
     public String getErrorCode() {
         return exceptionCode.getCode();
     }
