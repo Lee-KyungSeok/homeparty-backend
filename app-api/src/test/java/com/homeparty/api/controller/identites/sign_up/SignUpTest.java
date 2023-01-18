@@ -1,56 +1,33 @@
 package com.homeparty.api.controller.identites.sign_up;
 
 import autoparams.AutoSource;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.homeparty.api.dto.ApiResponse;
 import com.homeparty.api.dto.request.SignUpRequest;
+import com.homeparty.api.testing.BaseApiTest;
 import com.homeparty.identity.domain.aggregates.authtoken.AuthToken;
 import com.homeparty.identity.domain.aggregates.identity.SocialProvider;
 import com.homeparty.identity.domain.models.SocialProviderFetcher;
 import com.homeparty.identity.jwt.JwtAuthAccessTokenVerifier;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.web.reactive.server.WebTestClient;
 import reactor.core.publisher.Mono;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@ActiveProfiles("test")
-public class SignUpTest {
-
-    @LocalServerPort
-    private int port;
-
-    @Autowired
-    private WebTestClient webTestClient;
+public class SignUpTest extends BaseApiTest {
 
     @Autowired
     private JwtAuthAccessTokenVerifier jwtAuthAccessTokenVerifier;
 
-    @Autowired
-    private ObjectMapper objectMapper;
-
     @MockBean
     private SocialProviderFetcher socialProviderFetcher;
 
-    @BeforeEach
-    public void setUp() {
-        this.webTestClient = WebTestClient
-                .bindToServer()
-                .baseUrl("http://localhost:" + port)
-                .build();
-    }
-
-    private String basePath() {
+    @Override
+    public String basePath() {
         return "/api/v1/identities/sign-up-social";
     }
 

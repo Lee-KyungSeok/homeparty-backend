@@ -1,11 +1,11 @@
 package com.homeparty.identity.domain.commands;
 
 import abstraction.command.CommandHandler;
-import com.homeparty.identity.domain.exception.IdentityException;
-import com.homeparty.identity.domain.exception.IdentityExceptionCode;
 import com.homeparty.identity.domain.aggregates.authtoken.AuthToken;
 import com.homeparty.identity.domain.aggregates.identity.Identity;
 import com.homeparty.identity.domain.aggregates.identity.IdentityRepository;
+import com.homeparty.identity.domain.exception.IdentityException;
+import com.homeparty.identity.domain.exception.IdentityExceptionCode;
 import com.homeparty.identity.domain.models.AuthTokenGenerator;
 import com.homeparty.identity.domain.models.SocialProviderFetcher;
 import lombok.RequiredArgsConstructor;
