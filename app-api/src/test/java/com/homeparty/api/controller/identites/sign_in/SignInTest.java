@@ -1,11 +1,13 @@
-package com.homeparty.api.controller.identites.sign_up;
+package com.homeparty.api.controller.identites.sign_in;
 
 import autoparams.AutoSource;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.homeparty.api.dto.ApiResponse;
-import com.homeparty.api.dto.request.SignUpRequest;
 import com.homeparty.identity.domain.aggregates.authtoken.AuthToken;
-import com.homeparty.identity.domain.aggregates.identity.SocialProvider;
+import com.homeparty.identity.domain.aggregates.identity.Identity;
+import com.homeparty.identity.domain.aggregates.identity.IdentityRepository;
+import com.homeparty.identity.domain.commands.SignInSocialCommand;
+import com.homeparty.identity.domain.exception.IdentityExceptionCode;
 import com.homeparty.identity.domain.models.SocialProviderFetcher;
 import com.homeparty.identity.jwt.JwtAuthAccessTokenVerifier;
 import org.junit.jupiter.api.BeforeEach;
@@ -20,12 +22,15 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import reactor.core.publisher.Mono;
 
+import java.util.Optional;
+import java.util.UUID;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("test")
-public class SignUpTest {
+public class SignInTest {
 
     @LocalServerPort
     private int port;
@@ -39,6 +44,9 @@ public class SignUpTest {
     @Autowired
     private ObjectMapper objectMapper;
 
+    @Autowired
+    private IdentityRepository identityRepository;
+
     @MockBean
     private SocialProviderFetcher socialProviderFetcher;
 
@@ -51,26 +59,52 @@ public class SignUpTest {
     }
 
     private String basePath() {
-        return "/api/v1/identities/sign-up-social";
+        return "/api/v1/identities/sign-in-social";
+    }
+
+    @DisplayName("회원가입되어 있지 않다면 에러를 반환한다.")
+    @ParameterizedTest
+    @AutoSource()
+    public void sut_fails_if_not_sign_up(
+            SignInSocialCommand command,
+            Identity identity
+    ) {
+        given(socialProviderFetcher.fetch(command.getProviderType(), command.getProviderToken()))
+                .willReturn(identity.getProvider());
+        var exceptionCode = IdentityExceptionCode.NEED_SIGN_UP;
+
+        ApiResponse apiResponse = webTestClient
+                .post()
+                .uri(basePath())
+                .body(Mono.just(command), SignInSocialCommand.class)
+                .accept(MediaType.APPLICATION_JSON)
+                .exchange()
+                .expectStatus().isEqualTo(exceptionCode.getStatus())
+                .returnResult(ApiResponse.class)
+                .getResponseBody()
+                .blockFirst();
+
+        assertThat(apiResponse.getCode()).isEqualTo(exceptionCode.getCode());
     }
 
     @DisplayName("성공시 AuToken 을 반환한다.")
     @ParameterizedTest
     @AutoSource()
     public void sut_returns_authToken(
-            SignUpRequest request,
-            SocialProvider provider
+            SignInSocialCommand command,
+            Identity identity
     ) {
-        given(socialProviderFetcher.fetch(request.getProviderType(), request.getProviderToken()))
-                .willReturn(provider);
+        given(socialProviderFetcher.fetch(command.getProviderType(), command.getProviderToken()))
+                .willReturn(identity.getProvider());
+        identityRepository.save(identity);
 
         AuthToken authToken = webTestClient
                 .post()
                 .uri(basePath())
-                .body(Mono.just(request), SignUpRequest.class)
+                .body(Mono.just(command), SignInSocialCommand.class)
                 .accept(MediaType.APPLICATION_JSON)
                 .exchange()
-                .expectStatus().isCreated()
+                .expectStatus().isOk()
                 .returnResult(ApiResponse.class)
                 .getResponseBody()
                 .map(b -> objectMapper.convertValue(b.getData(), AuthToken.class))
@@ -82,6 +116,7 @@ public class SignUpTest {
         assertThat(authToken.getRefreshTokenExpiredAt()).isNotNull();
 
         // access token 이 제대로 되었는지 확인
-        jwtAuthAccessTokenVerifier.verify(authToken.getAccessToken());
+        Optional<UUID> identityId = jwtAuthAccessTokenVerifier.verify(authToken.getAccessToken());
+        assertThat(identityId).isEqualTo(Optional.of(identity.getId()));
     }
 }
