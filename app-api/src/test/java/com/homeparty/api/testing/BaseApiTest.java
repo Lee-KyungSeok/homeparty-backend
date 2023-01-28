@@ -12,6 +12,8 @@ import org.springframework.test.web.reactive.server.WebTestClient;
 @ActiveProfiles("test")
 public class BaseApiTest {
 
+    public static String AUTHORIZATION_HEADER = "Authorization";
+
     @LocalServerPort
     public int port;
 
@@ -20,6 +22,10 @@ public class BaseApiTest {
 
     @Autowired
     public ObjectMapper objectMapper;
+
+    public String getBearerHeader(String token) {
+        return "Bearer " + token;
+    }
 
     public String basePath() {
         return "/";

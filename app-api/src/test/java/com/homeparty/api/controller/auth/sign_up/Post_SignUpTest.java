@@ -1,4 +1,4 @@
-package com.homeparty.api.controller.identites.sign_up;
+package com.homeparty.api.controller.auth.sign_up;
 
 import autoparams.AutoSource;
 import com.homeparty.api.dto.ApiResponse;
@@ -18,7 +18,7 @@ import reactor.core.publisher.Mono;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
 
-public class SignUpTest extends BaseApiTest {
+public class Post_SignUpTest extends BaseApiTest {
 
     @Autowired
     private JwtAuthAccessTokenVerifier jwtAuthAccessTokenVerifier;
@@ -28,7 +28,7 @@ public class SignUpTest extends BaseApiTest {
 
     @Override
     public String basePath() {
-        return "/api/v1/identities/sign-up-social";
+        return "/api/v1/auth/sign-up-social";
     }
 
     @DisplayName("성공시 AuToken 을 반환한다.")

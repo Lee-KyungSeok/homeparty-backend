@@ -1,4 +1,4 @@
-package com.homeparty.api.controller.identites.sign_in;
+package com.homeparty.api.controller.auth.sign_in;
 
 import autoparams.AutoSource;
 import com.homeparty.api.dto.ApiResponse;
@@ -23,7 +23,7 @@ import java.util.UUID;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
 
-public class SignInTest extends BaseApiTest {
+public class Post_SignInTest extends BaseApiTest {
     @Autowired
     private JwtAuthAccessTokenVerifier jwtAuthAccessTokenVerifier;
 
@@ -35,7 +35,7 @@ public class SignInTest extends BaseApiTest {
 
     @Override
     public String basePath() {
-        return "/api/v1/identities/sign-in-social";
+        return "/api/v1/auth/sign-in-social";
     }
 
     @DisplayName("회원가입되어 있지 않다면 에러를 반환한다.")

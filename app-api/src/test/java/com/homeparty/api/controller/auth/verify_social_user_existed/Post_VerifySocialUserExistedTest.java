@@ -1,4 +1,4 @@
-package com.homeparty.api.controller.identites.verify_social_user_existed;
+package com.homeparty.api.controller.auth.verify_social_user_existed;
 
 import autoparams.AutoSource;
 import com.homeparty.api.dto.ApiResponse;
@@ -19,7 +19,7 @@ import reactor.core.publisher.Mono;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
 
-public class VerifySocialUserExistedTest extends BaseApiTest {
+public class Post_VerifySocialUserExistedTest extends BaseApiTest {
 
     @MockBean
     private SocialProviderFetcher socialProviderFetcher;
@@ -29,7 +29,7 @@ public class VerifySocialUserExistedTest extends BaseApiTest {
 
     @Override
     public String basePath() {
-        return "/api/v1/identities/verify-social-user-existed";
+        return "/api/v1/auth/verify-social-user-existed";
     }
 
     @DisplayName("유저가 존재하지 않는다면 false 를 반환한다.")

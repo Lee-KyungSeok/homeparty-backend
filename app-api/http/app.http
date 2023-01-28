@@ -1,0 +1,4 @@
+### sample
+GET http://localhost:8080/api/v1/identities/me
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ0b2tlblR5cGUiOiJhY2Nlc3MiLCJzdWIiOiJhM2IzNmE0Ni0xMGM3LTRmOGMtYmQzYy0yZjBkNjdlYTQyMDMiLCJpc3MiOiJhY2NvdW50cy5ob21lcGFydHkuY29tIiwiaWF0IjoxNjc0ODk3MjkxLCJleHAiOjE2NzQ5ODM2OTF9.tJkH81TudwuUzYpKZpUCsryr_5E0ejOXTWx5KczVy2s
+Content-Type: application/json
