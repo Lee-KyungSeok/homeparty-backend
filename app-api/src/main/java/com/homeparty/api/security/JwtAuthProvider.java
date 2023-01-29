@@ -23,9 +23,9 @@ public class JwtAuthProvider implements AuthenticationProvider {
     private final JwtAuthAccessTokenVerifier tokenVerifier;
 
     @Override
-    public Authentication authenticate(Authentication authentication) throws AuthenticationException {
+    public Authentication authenticate(Authentication authentication) throws AuthenticationException, ApiException {
         if (!(authentication instanceof PreAuthenticatedAuthenticationToken)) {
-            throw new ApiException(ApiExceptionCode.INVALID_ACCESS_TOKEN);
+            return null;
         }
 
         UUID identityId = Optional.ofNullable(authentication.getPrincipal())
@@ -37,7 +37,7 @@ public class JwtAuthProvider implements AuthenticationProvider {
 
         return new PreAuthenticatedAuthenticationToken(
                 identityId,
-                null,
+                "",
                 Collections.singleton(new SimpleGrantedAuthority("USER"))
         );
     }

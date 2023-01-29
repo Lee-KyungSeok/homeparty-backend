@@ -31,7 +31,7 @@
 
     <springProfile name="local">
         <include resource="org/springframework/boot/logging/logback/console-appender.xml" />
-        <root level="INFO">
+        <root level="DEBUG">
             <appender-ref ref="CONSOLE" />
 <!--            <appender-ref ref="aws_cloud_watch" />-->
         </root>

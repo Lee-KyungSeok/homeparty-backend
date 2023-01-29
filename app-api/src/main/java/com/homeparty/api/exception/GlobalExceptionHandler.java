@@ -7,6 +7,8 @@ import com.homeparty.invitation.domain.exception.InvitationException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -14,6 +16,21 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
+    @ExceptionHandler({ AuthenticationException.class })
+    public ResponseEntity<ApiResponse<Object>> handle(final AuthenticationException e) {
+        log.error("[! AuthenticationException !]: {}", e.getMessage(), e);
+        var exceptionCode = ApiExceptionCode.UNAUTHORIZED_ERROR;
+        return ResponseEntity.status(exceptionCode.getStatus())
+                .body(ApiResponse.failure(exceptionCode));
+    }
+
+    @ExceptionHandler({ AccessDeniedException.class })
+    public ResponseEntity<ApiResponse<Object>> handleForbidden(AccessDeniedException e) {
+        log.error("[! AccessDeniedException !]: {}", e.getMessage(), e);
+        var exceptionCode = ApiExceptionCode.FORBIDDEN_ERROR;
+        return ResponseEntity.status(exceptionCode.getStatus())
+                .body(ApiResponse.failure(exceptionCode));
+    }
 
     @ExceptionHandler({
             ApiException.class,

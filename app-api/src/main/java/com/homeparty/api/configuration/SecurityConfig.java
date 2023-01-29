@@ -1,29 +1,36 @@
 package com.homeparty.api.configuration;
 
-import com.homeparty.api.security.AuthExceptionEntryPoint;
-import com.homeparty.api.security.CustomAccessDeniedHandler;
-import com.homeparty.api.security.JwtAuthFilter;
-import com.homeparty.api.security.JwtAuthProvider;
+import com.homeparty.api.security.*;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.preauth.AbstractPreAuthenticatedProcessingFilter;
+import org.springframework.web.servlet.HandlerExceptionResolver;
 
-@RequiredArgsConstructor
+//@RequiredArgsConstructor
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
 
-    private final AuthExceptionEntryPoint authenticationExceptionEntryPoint;
-    private final CustomAccessDeniedHandler accessDeniedHandler;
+//    private final DelegatedAuthenticationEntry authenticationEntryPoint;
+//    private final DelegatedAccessDeniedHandler accessDeniedHandler;
     private final JwtAuthProvider jwtAuthProvider;
+    private final HandlerExceptionResolver handlerExceptionResolver;
+
+    public SecurityConfig(
+            JwtAuthProvider jwtAuthProvider,
+            @Qualifier("handlerExceptionResolver") HandlerExceptionResolver handlerExceptionResolver
+    ) {
+        this.jwtAuthProvider = jwtAuthProvider;
+        this.handlerExceptionResolver = handlerExceptionResolver;
+    }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -37,8 +44,9 @@ public class SecurityConfig {
                 .httpBasic().disable();
         http
                 .exceptionHandling()
-                .authenticationEntryPoint(authenticationExceptionEntryPoint)
-                .accessDeniedHandler(accessDeniedHandler);
+                .accessDeniedPage("/api/")
+                .accessDeniedHandler(new DelegatedAccessDeniedHandler(handlerExceptionResolver))
+                .authenticationEntryPoint(new DelegatedAuthenticationEntry(handlerExceptionResolver));
         http
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
@@ -46,6 +54,12 @@ public class SecurityConfig {
                 .authorizeHttpRequests()
                 .requestMatchers(HttpMethod.OPTIONS).permitAll()
                 .requestMatchers("/h2-console/**").permitAll() // h2 console
+                .requestMatchers(
+                        "/error",
+                        "/health",
+                        "/actuator",
+                        "/actuator/**"
+                ).permitAll()
                 .requestMatchers(
                         "/api/v1/auth/sign-up-social",
                         "/api/v1/auth/sign-in-social",
@@ -55,10 +69,9 @@ public class SecurityConfig {
                 .requestMatchers("/api/v1/**").authenticated()
                 .anyRequest().denyAll();
 
-        http.addFilterAt(
-                jwtAuthFilter(),
-                AbstractPreAuthenticatedProcessingFilter.class
-        );
+        http
+                .addFilterAt(jwtAuthFilter(), AbstractPreAuthenticatedProcessingFilter.class)
+                .addFilterBefore(new HomePartyExceptionFilter(handlerExceptionResolver), JwtAuthFilter.class);
 
         return http.build();
     }
@@ -69,13 +82,10 @@ public class SecurityConfig {
         return filter;
     }
 
-    @Bean
-    public WebSecurityCustomizer webSecurityCustomizer() {
-        return (web) -> web.ignoring()
-                .requestMatchers(
-                        "/health",
-                        "/actuator",
-                        "/actuator/**"
-                );
-    }
+//    @Bean
+//    public WebSecurityCustomizer webSecurityCustomizer() {
+//        return (web) -> web.ignoring()
+//
+//                );
+//    }
 }

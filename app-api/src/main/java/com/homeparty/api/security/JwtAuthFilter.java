@@ -1,5 +1,7 @@
 package com.homeparty.api.security;
 
+import com.homeparty.api.exception.ApiException;
+import com.homeparty.api.exception.ApiExceptionCode;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.web.authentication.preauth.AbstractPreAuthenticatedProcessingFilter;
@@ -14,6 +16,8 @@ public class JwtAuthFilter extends AbstractPreAuthenticatedProcessingFilter {
 
     @Override
     protected Object getPreAuthenticatedPrincipal(HttpServletRequest request) {
+        log.debug("filter - getPreAuthenticatedPrincipal");
+//        throw new ApiException(ApiExceptionCode.NOT_FOUND_ERROR);
         return extractToken(request);
     }
 

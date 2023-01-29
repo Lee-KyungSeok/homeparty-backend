@@ -12,6 +12,12 @@ Content-Type: application/json
   "providerToken": "bbjasfbkjbbwjbj12b3k12b3b21323"
 }
 
-### GET identity
-GET http://localhost:8080/api/identities/ad99cf21-63bb-4127-b9f0-15cbdf709ef2?provider=kakao
+### GET/ ME
+GET http://localhost:8080/api/v1/identities/me
+Authorization: Bearer 16e3VE0j9OWjD-SCYTuLBLFpDFluFKIkzg4y18bRCisNHgAAAYT6pKXq
+Content-Type: application/json
+
+### sample
+GET http://localhost:8080/api/v1/identities/me
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ0b2tlblR5cGUiOiJhY2Nlc3MiLCJzdWIiOiJiMTU0OGUwMy03YzBlLTRhOTgtOGYxNi1kOGI0ODJiMWE0NWMiLCJpc3MiOiJhY2NvdW50cy5ob21lcGFydHkuY29tIiwiaWF0IjoxNjc1MjM1NzY5LCJleHAiOjE2NzUzMjIxNjl9.-25GFqd5UH-vfgwNpsB-IJTH_owjZ-Kzd2A1rE6l_3g
 Content-Type: application/json
