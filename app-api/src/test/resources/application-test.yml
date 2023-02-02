@@ -1,6 +1,14 @@
 spring:
   jpa:
     show-sql: true
+  output:
+    ansi:
+      enabled: always
+
+logging:
+  level:
+    org.hibernate.sql: DEBUG
+    org.hibernate.type: trace
 
 homeparty:
   jwt:

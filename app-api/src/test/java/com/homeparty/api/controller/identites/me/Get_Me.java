@@ -51,8 +51,6 @@ public class Get_Me extends BaseApiTest {
         identityRepository.save(identity);
         var token = generator.generate(identity.getId().toString());
 
-        System.out.println("token ========" + token);
-
         var expected = new IdentityView(
                 identity.getId(),
                 identity.getNickname(),
@@ -138,37 +136,4 @@ public class Get_Me extends BaseApiTest {
 
         assertThat(apiResponse.getCode()).isEqualTo(exceptionCode.getCode());
     }
-
-//    @DisplayName("성공시 AuToken 을 반환한다.")
-//    @ParameterizedTest
-//    @AutoSource()
-//    public void sut_returns_authToken(
-//            SignInSocialCommand command,
-//            Identity identity
-//    ) {
-//        given(socialProviderFetcher.fetch(command.getProviderType(), command.getProviderToken()))
-//                .willReturn(identity.getProvider());
-//        identityRepository.save(identity);
-//
-//        AuthToken authToken = webTestClient
-//                .post()
-//                .uri(basePath())
-//                .body(Mono.just(command), SignInSocialCommand.class)
-//                .accept(MediaType.APPLICATION_JSON)
-//                .exchange()
-//                .expectStatus().isOk()
-//                .returnResult(ApiResponse.class)
-//                .getResponseBody()
-//                .map(b -> objectMapper.convertValue(b.getData(), AuthToken.class))
-//                .blockFirst();
-//
-//        assertThat(authToken.getAccessToken()).isNotNull();
-//        assertThat(authToken.getAccessTokenExpiredAt()).isNotNull();
-//        assertThat(authToken.getRefreshToken()).isNotNull();
-//        assertThat(authToken.getRefreshTokenExpiredAt()).isNotNull();
-//
-//        // access token 이 제대로 되었는지 확인
-//        Optional<UUID> identityId = jwtAuthAccessTokenVerifier.verify(authToken.getAccessToken());
-//        assertThat(identityId).isEqualTo(Optional.of(identity.getId()));
-//    }
 }

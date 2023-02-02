@@ -5,10 +5,10 @@ import lombok.Getter;
 
 @AllArgsConstructor
 @Getter
-public class VerifySocialUserExistedResponse {
-    boolean exist;
+public class ExistedResponse {
+    private boolean exist;
 
-    protected VerifySocialUserExistedResponse() {
+    protected ExistedResponse() {
 
     }
 }

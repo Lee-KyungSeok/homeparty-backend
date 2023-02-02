@@ -2,8 +2,8 @@ package com.homeparty.api.controllers;
 
 import com.homeparty.api.dto.ApiResponse;
 import com.homeparty.api.dto.request.SignUpRequest;
-import com.homeparty.api.dto.request.VerifySocialUserExistedRequest;
-import com.homeparty.api.dto.response.VerifySocialUserExistedResponse;
+import com.homeparty.api.dto.request.ValidateSocialUserExistedRequest;
+import com.homeparty.api.dto.response.ExistedResponse;
 import com.homeparty.identity.domain.aggregates.authtoken.AuthToken;
 import com.homeparty.identity.domain.commands.SignInSocialCommand;
 import com.homeparty.identity.domain.commands.SignInSocialCommandHandler;
@@ -50,13 +50,13 @@ public class AuthController {
         return ResponseEntity.status(HttpStatus.OK).body(ApiResponse.success(result));
     }
 
-    @PostMapping("verify-social-user-existed")
-    public ResponseEntity<ApiResponse<VerifySocialUserExistedResponse>> verifySocialUserExisted(
-            @RequestBody VerifySocialUserExistedRequest request
+    @PostMapping("validate-social-user-existed")
+    public ResponseEntity<ApiResponse<ExistedResponse>> validateSocialUserExisted(
+            @RequestBody ValidateSocialUserExistedRequest request
     ) {
         var isExisted = socialUserExistChecker.check(request.getProviderType(), request.getProviderToken());
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(ApiResponse.success(new VerifySocialUserExistedResponse(isExisted)));
+                .body(ApiResponse.success(new ExistedResponse(isExisted)));
     }
 }

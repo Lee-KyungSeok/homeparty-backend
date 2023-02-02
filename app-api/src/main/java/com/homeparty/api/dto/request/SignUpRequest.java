@@ -7,6 +7,6 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 public class SignUpRequest {
-    SocialProviderType providerType;
-    String providerToken;
+    private SocialProviderType providerType;
+    private String providerToken;
 }

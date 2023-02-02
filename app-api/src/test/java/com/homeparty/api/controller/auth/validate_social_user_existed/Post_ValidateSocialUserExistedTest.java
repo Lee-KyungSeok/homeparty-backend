@@ -1,9 +1,9 @@
-package com.homeparty.api.controller.auth.verify_social_user_existed;
+package com.homeparty.api.controller.auth.validate_social_user_existed;
 
 import autoparams.AutoSource;
 import com.homeparty.api.dto.ApiResponse;
-import com.homeparty.api.dto.request.VerifySocialUserExistedRequest;
-import com.homeparty.api.dto.response.VerifySocialUserExistedResponse;
+import com.homeparty.api.dto.request.ValidateSocialUserExistedRequest;
+import com.homeparty.api.dto.response.ExistedResponse;
 import com.homeparty.api.testing.BaseApiTest;
 import com.homeparty.identity.domain.aggregates.identity.Identity;
 import com.homeparty.identity.domain.aggregates.identity.IdentityRepository;
@@ -19,7 +19,7 @@ import reactor.core.publisher.Mono;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
 
-public class Post_VerifySocialUserExistedTest extends BaseApiTest {
+public class Post_ValidateSocialUserExistedTest extends BaseApiTest {
 
     @MockBean
     private SocialProviderFetcher socialProviderFetcher;
@@ -29,29 +29,29 @@ public class Post_VerifySocialUserExistedTest extends BaseApiTest {
 
     @Override
     public String basePath() {
-        return "/api/v1/auth/verify-social-user-existed";
+        return "/api/v1/auth/validate-social-user-existed";
     }
 
     @DisplayName("유저가 존재하지 않는다면 false 를 반환한다.")
     @ParameterizedTest
     @AutoSource()
     public void sut_returns_false_exist_if_user_not_existed(
-            VerifySocialUserExistedRequest request,
+            ValidateSocialUserExistedRequest request,
             SocialProvider provider
     ) {
         given(socialProviderFetcher.fetch(request.getProviderType(), request.getProviderToken()))
                 .willReturn(provider);
 
-        VerifySocialUserExistedResponse response = webTestClient
+        ExistedResponse response = webTestClient
                 .post()
                 .uri(basePath())
-                .body(Mono.just(request), VerifySocialUserExistedRequest.class)
+                .body(Mono.just(request), ValidateSocialUserExistedRequest.class)
                 .accept(MediaType.APPLICATION_JSON)
                 .exchange()
                 .expectStatus().isOk()
                 .returnResult(ApiResponse.class)
                 .getResponseBody()
-                .map(b -> objectMapper.convertValue(b.getData(), VerifySocialUserExistedResponse.class))
+                .map(b -> objectMapper.convertValue(b.getData(), ExistedResponse.class))
                 .blockFirst();
 
         assertThat(response.isExist()).isEqualTo(false);
@@ -61,23 +61,23 @@ public class Post_VerifySocialUserExistedTest extends BaseApiTest {
     @ParameterizedTest
     @AutoSource()
     public void sut_returns_true_exist_if_user_existed(
-            VerifySocialUserExistedRequest request,
+            ValidateSocialUserExistedRequest request,
             Identity identity
     ) {
         given(socialProviderFetcher.fetch(request.getProviderType(), request.getProviderToken()))
                 .willReturn(identity.getProvider());
         identityRepository.save(identity);
 
-        VerifySocialUserExistedResponse response = webTestClient
+        ExistedResponse response = webTestClient
                 .post()
                 .uri(basePath())
-                .body(Mono.just(request), VerifySocialUserExistedRequest.class)
+                .body(Mono.just(request), ValidateSocialUserExistedRequest.class)
                 .accept(MediaType.APPLICATION_JSON)
                 .exchange()
                 .expectStatus().isOk()
                 .returnResult(ApiResponse.class)
                 .getResponseBody()
-                .map(b -> objectMapper.convertValue(b.getData(), VerifySocialUserExistedResponse.class))
+                .map(b -> objectMapper.convertValue(b.getData(), ExistedResponse.class))
                 .blockFirst();
 
         assertThat(response.isExist()).isEqualTo(true);

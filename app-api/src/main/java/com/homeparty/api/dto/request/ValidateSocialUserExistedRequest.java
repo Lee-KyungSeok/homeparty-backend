@@ -6,7 +6,7 @@ import lombok.Getter;
 
 @AllArgsConstructor
 @Getter
-public class VerifySocialUserExistedRequest {
-    SocialProviderType providerType;
-    String providerToken;
+public class ValidateSocialUserExistedRequest {
+    private SocialProviderType providerType;
+    private String providerToken;
 }

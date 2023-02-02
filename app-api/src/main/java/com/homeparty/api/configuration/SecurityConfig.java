@@ -63,7 +63,7 @@ public class SecurityConfig {
                 .requestMatchers(
                         "/api/v1/auth/sign-up-social",
                         "/api/v1/auth/sign-in-social",
-                        "/api/v1/auth/verify-social-user-existed"
+                        "/api/v1/auth/validate-social-user-existed"
                 ).permitAll()
 //                .antMatchers("/api/auth/validate-access-token/**").hasAnyRole("USER") // -> USER_ROLE 설정됨
                 .requestMatchers("/api/v1/**").authenticated()
