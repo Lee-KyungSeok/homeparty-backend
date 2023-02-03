@@ -16,7 +16,7 @@ spring:
 
 homeparty:
   jwt:
-    secret: "8LmmIBzBJkKKzuwIwCJvWNg4VvxQA2sdFV12agj3sfgaHeNwHLwK1fZ0VBADC1DbmTz67eUCpByaVZ"
+    secret: 8LmmIBzBJkKKzuwIwCJvWNg4VvxQA2sdFV12agj3sfgaHeNwHLwK1fZ0VBADC1DbmTz67eUCpByaVZ
   datasource:
     main:
       driver-class-name: com.mysql.cj.jdbc.Driver
@@ -24,5 +24,10 @@ homeparty:
       username: root
       password: mysql
       maximum-pool-size: 3
+  aws:
+    credentials:
+      profile-name: homeparty-dev
+    s3:
+      default-bucket: 123
 
 

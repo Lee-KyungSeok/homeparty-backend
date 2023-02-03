@@ -1,6 +1,11 @@
 spring:
   jpa:
     show-sql: true
+  cloud:
+    aws:
+      credentials:
+        profile:
+          name: ${TEST_AWS_PROFILE}
 
 homeparty:
   datasource:

@@ -1,9 +1,10 @@
 package com.homeparty.invitation.domain.commands;
 
 import abstraction.command.CommandHandler;
-import com.homeparty.invitation.domain.aggregates.invitationcard.InvitationCardRepository;
 import com.homeparty.invitation.domain.aggregates.invitationcard.InvitationCard;
+import com.homeparty.invitation.domain.aggregates.invitationcard.InvitationCardRepository;
 import com.homeparty.invitation.domain.aggregates.invitationcard.InvitationCardState;
+import com.homeparty.invitation.domain.models.InvitationCardUploadUrlFetcher;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -17,13 +18,15 @@ public class CreateInvitationCardCommandHandler implements CommandHandler<Create
     private final InvitationCardRepository invitationCardRepository;
 
     public UUID handle(CreateInvitationCardCommand command) {
+
         InvitationCard invitationCard = new InvitationCard(
                 command.getCardId(),
                 command.getUploaderId(),
                 InvitationCardState.CREATED,
-                InvitationCard.makeNewFilePath(command.getFileExtension()),
+                InvitationCard.makeNewFilePath(),
                 LocalDateTime.now()
         );
+
         invitationCardRepository.save(invitationCard);
         return invitationCard.getId();
     }

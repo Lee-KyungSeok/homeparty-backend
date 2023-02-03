@@ -7,7 +7,8 @@ import lombok.Getter;
 public enum InvitationExceptionCode implements HomePartyExceptionCode {
 
     INVITATION_SERVER_ERROR(500, "INVITATION_001", "Internal Server Error"),
-    NOT_FOUND_INVITATION(405, "IDENTITY_002", "not found invitation"),
+    NOT_FOUND_INVITATION(404, "INVITATION_002", "not found invitation"),
+    INVALID_INVITATION_CARD_CONTENT_TYPE(400, "INVITATION_003", "invalid content type of invitation card"),
     ;
 
     private final int status;

@@ -3,6 +3,8 @@ spring:
     open-in-view: false
 
 homeparty:
+  jwt:
+    secret: ${JWT_SECRET}
   datasource:
     main:
       driver-class-name: com.mysql.cj.jdbc.Driver
@@ -10,6 +12,9 @@ homeparty:
       username: ${DATASOURCE_MAIN_USERNAME}
       password: ${DATASOURCE_MAIN_PASSWORD}
       maximum-pool-size: ${DATASOURCE_MAIN_MAXIMUM_POOL_SIZE}
+  aws:
+    s3:
+      default-bucket: ${DEFAULT_BUCKET}
 
 slack:
   error-webhook-uri: ${SLACK_ERROR_WEBHOOK_URI}

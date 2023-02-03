@@ -13,5 +13,4 @@ import java.util.UUID;
 public class CreateInvitationCardCommand implements Command {
     private UUID cardId;
     private UUID uploaderId;
-    private String fileExtension;
 }

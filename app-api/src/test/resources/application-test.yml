@@ -20,5 +20,8 @@ homeparty:
       username: root
       password: mysql
       maximum-pool-size: 3
+  aws:
+    s3:
+      default-bucket: "123"
 
 

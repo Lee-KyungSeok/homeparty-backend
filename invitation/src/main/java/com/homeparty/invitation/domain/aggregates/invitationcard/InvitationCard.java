@@ -68,12 +68,10 @@ public class InvitationCard {
         this.createdAt = createdAt;
     }
 
-    public static String makeNewFilePath(String extension) {
+    public static String makeNewFilePath() {
         return "/invitation-cards/"
                 + System.currentTimeMillis()
                 + "_"
-                + UUID.randomUUID()
-                + "."
-                + extension;
+                + UUID.randomUUID();
     }
 }

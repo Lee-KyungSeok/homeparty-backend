@@ -12,6 +12,11 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     runtimeOnly 'mysql:mysql-connector-java'
 
+    implementation platform('software.amazon.awssdk:bom:2.19.29')
+    implementation 'software.amazon.awssdk:s3'
+//    implementation 'io.awspring.cloud:spring-cloud-aws-starter:3.0.0-RC1'
+//    implementation 'io.awspring.cloud:spring-cloud-aws-starter-s3:3.0.0-RC1'
+
     implementation 'org.springframework.boot:spring-boot-starter-webflux'
 
     testImplementation 'com.h2database:h2'

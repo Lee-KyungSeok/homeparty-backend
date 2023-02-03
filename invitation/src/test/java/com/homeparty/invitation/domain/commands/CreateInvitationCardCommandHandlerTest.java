@@ -20,7 +20,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @DataJpaTest
 @Slf4j
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-class CreateInvitationCardHandlerTest {
+class CreateInvitationCardCommandHandlerTest {
 
     @Autowired
     private InvitationCardRepository invitationCardRepository;
@@ -43,6 +43,5 @@ class CreateInvitationCardHandlerTest {
         assertThat(actual.get().getInvitationId()).isNull();
         assertThat(actual.get().getUploaderId()).isEqualTo(command.getUploaderId());
         assertThat(actual.get().getState()).isEqualTo(InvitationCardState.CREATED);
-        assertThat(actual.get().getFilePath()).contains(command.getFileExtension());
     }
 }

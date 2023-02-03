@@ -1,12 +1,8 @@
 package com.homeparty.identity.domain.models;
 
-import com.homeparty.identity.domain.aggregates.authtoken.AuthToken;
 import com.homeparty.identity.domain.aggregates.identity.Identity;
 import com.homeparty.identity.domain.aggregates.identity.IdentityRepository;
 import com.homeparty.identity.domain.aggregates.identity.SocialProviderType;
-import com.homeparty.identity.domain.commands.SignInSocialCommand;
-import com.homeparty.identity.domain.exception.IdentityException;
-import com.homeparty.identity.domain.exception.IdentityExceptionCode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
