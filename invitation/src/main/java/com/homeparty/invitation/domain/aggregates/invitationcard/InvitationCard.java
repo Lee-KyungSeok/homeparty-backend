@@ -68,10 +68,23 @@ public class InvitationCard {
         this.createdAt = createdAt;
     }
 
-    public static String makeNewFilePath() {
+    public InvitationCard(
+            UUID id,
+            UUID uploaderId,
+            InvitationCardState state,
+            LocalDateTime createdAt
+    ) {
+        this.id = id;
+        this.uploaderId = uploaderId;
+        this.state = state;
+        this.filePath = makeNewFilePath(id);
+        this.createdAt = createdAt;
+    }
+
+    public static String makeNewFilePath(UUID cardId) {
         return "/invitation-cards/"
-                + System.currentTimeMillis()
+                + cardId
                 + "_"
-                + UUID.randomUUID();
+                + System.currentTimeMillis();
     }
 }

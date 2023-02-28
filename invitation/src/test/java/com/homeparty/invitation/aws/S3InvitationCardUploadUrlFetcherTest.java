@@ -5,7 +5,7 @@ import autoparams.customization.Customization;
 import com.homeparty.invitation.domain.aggregates.invitationcard.InvitationCardContentType;
 import com.homeparty.invitation.domain.models.InvitationCardUploadUrlFetcher.InvitationCardUploadUrlParams;
 import com.homeparty.invitation.domain.models.InvitationCardUploadUrlFetcher.InvitationCardUploadUrlResult;
-import com.homeparty.invitation.testing.DefaultS3PresignerCustomizer;
+import com.homeparty.invitation.testing.DomainDefaultCustomization;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -20,7 +20,7 @@ public class S3InvitationCardUploadUrlFetcherTest {
     @DisplayName("SignedUrl 을 만든다.")
     @ParameterizedTest
     @AutoSource()
-    @Customization(DefaultS3PresignerCustomizer.class)
+    @Customization(DomainDefaultCustomization.class)
     public void sut_return_signed_url(
             String filePath,
             S3Presigner presigner,

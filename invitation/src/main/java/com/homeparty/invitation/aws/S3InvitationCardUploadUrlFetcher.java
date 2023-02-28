@@ -12,6 +12,7 @@ import java.time.Duration;
 
 
 // https://github.com/aws/aws-sdk-java-v2/issues/1493
+// https://github.com/aws/aws-sdk-java-v2/blob/master/core/auth/src/main/java/software/amazon/awssdk/auth/signer/internal/BaseAws4Signer.java
 // 위를 보면 아직 presignedPost 구현이 되어 있지 않음
 @RequiredArgsConstructor
 @Service
