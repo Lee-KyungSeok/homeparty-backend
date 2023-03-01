@@ -1,7 +1,6 @@
 package com.homeparty.api.configuration;
 
 import com.homeparty.api.security.*;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,13 +13,10 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.preauth.AbstractPreAuthenticatedProcessingFilter;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 
-//@RequiredArgsConstructor
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
 
-//    private final DelegatedAuthenticationEntry authenticationEntryPoint;
-//    private final DelegatedAccessDeniedHandler accessDeniedHandler;
     private final JwtAuthProvider jwtAuthProvider;
     private final HandlerExceptionResolver handlerExceptionResolver;
 

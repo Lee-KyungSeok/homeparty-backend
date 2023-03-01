@@ -13,7 +13,6 @@ import org.springframework.context.annotation.Primary;
 @RequiredArgsConstructor
 @Configuration
 public class IdentityConfig {
-    private final KakaoSocialProviderFetcher kakaoFetcher;
 
     @Value("${homeparty.jwt.secret}")
     String jwtSecretKey;
@@ -25,7 +24,9 @@ public class IdentityConfig {
 
     @Bean
     @Primary
-    public SocialProviderFetcher compositeSocialProviderFetcher() {
+    public SocialProviderFetcher compositeSocialProviderFetcher(
+            KakaoSocialProviderFetcher kakaoFetcher
+    ) {
         CompositeSocialProviderFetcher client = new CompositeSocialProviderFetcher();
         client.addFetcher(SocialProviderType.KAKAO, kakaoFetcher);
         return client;

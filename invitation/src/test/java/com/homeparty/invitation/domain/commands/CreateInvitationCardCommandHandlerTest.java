@@ -6,7 +6,6 @@ import com.homeparty.invitation.aws.AwsConfig;
 import com.homeparty.invitation.aws.S3InvitationCardUploadUrlFetcher;
 import com.homeparty.invitation.domain.aggregates.invitationcard.InvitationCardRepository;
 import com.homeparty.invitation.domain.aggregates.invitationcard.InvitationCardState;
-import com.homeparty.invitation.domain.models.InvitationCardUploadUrlFetcher;
 import com.homeparty.invitation.testing.DomainDefaultCustomization;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.DisplayName;
@@ -17,6 +16,8 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import software.amazon.awssdk.services.s3.presigner.S3Presigner;
+
+import java.util.HashMap;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -75,10 +76,10 @@ class CreateInvitationCardCommandHandlerTest {
         // then
         assertThat(actual.cardId()).isEqualTo(command.getCardId());
         assertThat(actual.uploadUrl().toString()).contains(
-                "https://" + awsConfig.invitationCardBucket() + ".s3.ap-northeast-2.amazonaws.com/"
+                "https://" + awsConfig.invitationCardBucket() + ".s3.ap-northeast-2.amazonaws.com/invitation-cards/"
+                        + command.getCardId().toString() + "_"
         );
-        assertThat(actual.uploadUrl().toString()).contains(command.getCardId().toString());
         assertThat(actual.httpMethod()).isEqualTo("PUT");
-        assertThat(actual.uploadData()).isNull();
+        assertThat(actual.uploadData()).usingRecursiveComparison().isEqualTo(new HashMap<>());
     }
 }

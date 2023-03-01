@@ -21,7 +21,9 @@ homeparty:
       password: mysql
       maximum-pool-size: 3
   aws:
+    credentials:
+      profile-name: "homeparty_dev"
     s3:
-      default-bucket: "123"
+      default-bucket: "defaultBucket"
 
 

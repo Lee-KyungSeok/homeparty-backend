@@ -44,7 +44,7 @@ public class CreateInvitationCardCommandHandler implements CommandHandler<Create
         );
     }
 
-    record Result(
+    public record Result(
             UUID cardId,
             URL uploadUrl,
             String httpMethod,

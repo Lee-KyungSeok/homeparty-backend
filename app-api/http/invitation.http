@@ -1,0 +1,8 @@
+### CreateInvitationCard
+POST http://localhost:8080/api/v1/invitation-cards
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ0b2tlblR5cGUiOiJhY2Nlc3MiLCJzdWIiOiI5MmU2ZjdkOC00YzE4LTRkNzktYTg4OC02YzEzODM5OTE1MTciLCJpc3MiOiJhY2NvdW50cy5ob21lcGFydHkuY29tIiwiaWF0IjoxNjc3NjUwMTQ2LCJleHAiOjE2Nzc3MzY1NDZ9.XUrwDjDdKccFPhBJA4FDrtSeybszUMBeJ0E271hBlJA
+Content-Type: application/json
+
+{
+  "contentType": "image/jpeg"
+}
